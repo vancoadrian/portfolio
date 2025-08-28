@@ -2,10 +2,6 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-
-  app: {
-    baseURL: '/portfolio/', // baseURL: '/<repository>/'
-  },
   modules: [
     '@nuxt/image',
     '@nuxt/icon',
@@ -33,5 +29,14 @@ export default defineNuxtConfig({
       { code: 'en', name: 'EN', file: 'en.json' },
       { code: 'sk', name: 'SK', file: 'sk.json' }
     ]
-  }
+  },
+
+  app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+  },
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    }
+  },
 })
