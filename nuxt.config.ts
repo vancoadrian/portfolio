@@ -36,4 +36,12 @@ export default defineNuxtConfig({
       baseURL: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
     }
   },
+
+  icon: {
+    provider: 'none',
+    clientBundle: {
+      scan: true,
+      // ...or other bundle options
+    },
+  }
 })
