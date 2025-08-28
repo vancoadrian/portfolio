@@ -30,4 +30,10 @@ export default defineNuxtConfig({
       { code: 'sk', name: 'SK', file: 'sk.json' }
     ]
   },
+
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    }
+  },
 })
