@@ -33,7 +33,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: process.env.NUXT_APP_BASE_URL || '/',
+      baseURL: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
     }
   },
 })
