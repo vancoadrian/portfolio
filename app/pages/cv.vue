@@ -146,6 +146,7 @@
 
 <script setup>
 import { ref } from 'vue';
-const config = useRuntimeConfig();
-const profileImage = ref(config.public.baseURL + 'linkedin.jpg');
+
+// Set this to your profile image path in /public (e.g. '/profile.jpg')
+const profileImage = ref('/linkedin.jpg');
 </script>
