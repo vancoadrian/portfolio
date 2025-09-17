@@ -30,6 +30,7 @@
 						</li>
 						<li>
 							<span class="font-semibold text-gray-100">Bachelor's degree (Informatics)</span>, FIIT STU <span class="text-gray-400">(2019-2024)</span>
+							<a href="https://github.com/vancoadrian/school" target="_blank" class="text-blue-400 underline ml-2">GitHub School</a>
 							<div class="text-gray-400 text-sm mt-1 pl-2">
 								Bachelor thesis: Developed a decentralized application marketplace utilizing IPv4 addresses on the IOTA network, with smart contracts in Solidity and a frontend in Angular integrated with MetaMask.
 								<a href="https://opac.crzp.sk/?fn=detailBiblioFormChildA3JN7&sid=AA9A59A4FA5B9CCA5E9C4B07A76D&seo=CRZP-detail-kniha" target="_blank" class="text-blue-400 underline ml-1">View thesis</a>
