@@ -125,15 +125,19 @@
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Nuxt.js</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Angular</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Tailwind CSS</li>
-									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Xamarin</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Python</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">R</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Solidity</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Blockchain</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Laravel</li>
+									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Xamarin</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">C# .NET</li>
+									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Java</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Figma</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Jira</li>
+									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Vercel</li>
+									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Azure</li>
+									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Supabase</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Automation</li>
 									  <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Electronics</li>
 								</ul>
