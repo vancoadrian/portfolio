@@ -238,8 +238,9 @@ const projectCategories = [
 		icon: 'mdi:web',
 		items: [
 			{ name: 'Car Service Website', description: 'Website for a car service business', link: '#', images: ["/webs/car-service/desktop/homecookies.png", "/webs/car-service/desktop/contact.png", "/webs/car-service/desktop/services.png", "/webs/car-service/mobile/homecookies.png", "/webs/car-service/mobile/homemenu.png", "/webs/car-service/mobile/contact.png"].map(withBaseURL) },
+			{ name: 'Towing Service Website', description: 'Website for a towing service', link: '#', images: ["/webs/towing-service/desktop/home.png", "/webs/towing-service/desktop/services.png", "/webs/towing-service/desktop/contact.png", "/webs/towing-service/mobile/home.png", "/webs/towing-service/mobile/services.png", "/webs/towing-service/mobile/contact.png"].map(withBaseURL) },
 			{ name: 'Fishing Lake Website', description: 'Presentation site for a fishing lake', link: '#', images: ["/webs/pond/desktop/home.png", "/webs/pond/desktop/gallery.png", "/webs/pond/desktop/pricelist.png", "/webs/pond/desktop/contact.png", "/webs/pond/mobile/home.png", "/webs/pond/mobile/gallery.png", "/webs/pond/mobile/pricelist.png", "/webs/pond/mobile/contact.png"].map(withBaseURL) },
-			{ name: 'Car Transport to Airport Website (in progress)', description: 'Booking site for airport car transport', link: '#' },
+			{ name: 'Car Transport to Airport Website', description: 'Booking site for airport car transport', link: '#', images: ["/webs/airport-transport/desktop/home.png", "/webs/airport-transport/desktop/pricelist.png", "/webs/airport-transport/desktop/homefull.png"].map(withBaseURL) },
 			{ name: 'Car Detailing Website (planned)', description: 'Website for car detailing services', link: '#' },
 			{ name: 'Home Cleaning Service Website (planned)', description: 'Website for home cleaning services', link: '#' },
 			{ name: 'Electro Service Website (planned)', description: 'Website for electrical services', link: '#' },
@@ -249,22 +250,33 @@ const projectCategories = [
 		category: 'Enterprise Projects (Angular)',
 		icon: 'mdi:lightning-bolt',
 		items: [
-			{ name: 'VarioStep', description: 'Enterprise energy management platform', link: '#' },
-			{ name: 'Xenergie', description: 'Energy data analytics and reporting system', link: '#' },
-			{ name: 'VarioStep One', description: 'Android web app (Xamarin) for scanning QR codes to link energy devices', link: '#' },
-			{ name: 'ACON', description: 'Advanced control and monitoring for energy networks', link: '#' },
-			{ name: 'ISAF (in progress)', description: 'Integrated system for asset and facility management', link: '#' },
+			{ name: 'ContactPoint PWA', description: 'PWA Internal portal connected to AD to see own business contact card and work colleagues contact cards with export features', link: '#', images: ["/proxenta/contactpoint/appicons.png", "/proxenta/contactpoint/login.png", "/proxenta/contactpoint/dashboard.png", "/proxenta/contactpoint/search.png", "/proxenta/contactpoint/profile.png", "/proxenta/contactpoint/export.png"].map(withBaseURL) },
+			{ name: 'VarioStep', description: 'Enterprise energy management platform', link: '#'
+			// , images: ["/microstep/variostep/sysconf.png", "/microstep/variostep/customer.png"].map(withBaseURL) 
+			},
+			{ name: 'Xenergie', description: 'Energy data analytics and reporting system', link: '#'
+			// , images: ["/microstep/variostepone/treeview.png", "/microstep/variostepone/anomalydef.png"].map(withBaseURL) 
+		},
+			{ name: 'VarioStep One', description: 'Android web app (Xamarin) for scanning QR codes to link energy devices', link: '#'
+			// , images: ["/microstep/mobilewebapp/landing.png", "/microstep/mobilewebapp/webview.png"].map(withBaseURL) 
+			},
+			{ name: 'ACON', description: 'Advanced control and monitoring for energy networks', link: '#'
+			// , images: ["/microstep/acon/calcoverview.png", "/microstep/acon/columns.png", "/microstep/acon/trafosvg.png", "/microstep/acon/export.png", "/microstep/acon/imports.png", "/microstep/acon/importstatus.png", "/microstep/acon/processeshistory.png"].map(withBaseURL) 
+			},
+			{ name: 'ISAF (in progress)', description: 'Integrated system for asset and facility management', link: '#'
+			// , images: ["/microstep/isaf/assets.png", "/microstep/isaf/customers.png", "/microstep/isaf/subpoints.png"].map(withBaseURL) 
+			},
 		]
 	},
 	{
 		category: 'IT Administrator',
 		icon: 'mdi:server',
 		items: [
-			{ name: 'Server Administration', description: 'Managed Windows and Linux servers, including setup, maintenance, and troubleshooting', link: '#' },
+			{ name: 'Server Administration', description: 'Managed Windows and Linux servers, including setup, maintenance, and troubleshooting', link: '#', images: ["/proxenta/vmware.png"].map(withBaseURL) },
 			{ name: 'MS365 Administration', description: 'Administered Microsoft 365 services including Exchange, Teams, and licensing', link: '#' },
 			{ name: 'SharePoint Administration', description: 'Managed and customized SharePoint sites for collaboration', link: '#' },
-			{ name: 'Active Directory Migration', description: 'Migrated users and resources to Active Directory for centralized management', link: '#' },
-			{ name: 'Fileserver Permissions Migration', description: 'Migrated file server permissions from user-based to group-based (created 500+ groups) for easier access management', link: '#' },
+			{ name: 'Active Directory Migration', description: 'Migrated users and resources to Active Directory for centralized management', link: '#', images: ["/proxenta/ad/info.png"].map(withBaseURL) },
+			{ name: 'Fileserver Permissions Migration', description: 'Migrated file server permissions from user-based to group-based (created 500+ groups) for easier access management', link: '#', images: ["/proxenta/ad/groups.png"].map(withBaseURL) },
 			{ name: 'NAS Backups', description: 'Implemented and managed NAS server backups for data protection', link: '#' },
 			{ name: 'Domain Management', description: 'Managed domains and DNS records via web admin portals (registrars, hosting providers)', link: '#' },
 			{ name: 'Monitoring', description: 'Implemented monitoring solutions for servers and network infrastructure', link: '#' },
@@ -298,7 +310,7 @@ const projectCategories = [
 		items: [
 			{ name: 'Raspberry Pi NAS', description: 'Network Attached Storage built with Raspberry Pi', link: '#', images: ["/openvault/dashboard.png", "/openvault/1.png"].map(withBaseURL) },
 			{ name: 'Raspberry Pi MagicMirror', description: 'MagicMirror project using Raspberry Pi for displaying presentation material', link: '#', images: ["/magicmirror/3.png", "/magicmirror/2.png", "/magicmirror/1.png"].map(withBaseURL) },
-			{ name: 'Network Room Temperature Monitoring (planned)', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#' },
+			{ name: 'Network Room Temperature Monitoring (planned)', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#', images: ["/tempmonitor/1.jpg"].map(withBaseURL) },
 		]
 	},
 	{
