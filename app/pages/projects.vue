@@ -250,7 +250,7 @@ const projectCategories = [
 		category: 'Enterprise Projects (Angular)',
 		icon: 'mdi:lightning-bolt',
 		items: [
-			{ name: 'ContactPoint PWA', description: 'PWA Internal portal connected to AD to see own business contact card and work colleagues contact cards with export features', link: '#', images: ["/proxenta/contactpoint/appicons.png", "/proxenta/contactpoint/login.png", "/proxenta/contactpoint/dashboard.png", "/proxenta/contactpoint/search.png", "/proxenta/contactpoint/profile.png", "/proxenta/contactpoint/export.png"].map(withBaseURL) },
+			{ name: 'ContactPoint PWA', description: 'PWA Internal portal connected to AD to see own business contact card and work colleagues contact cards with export features. Also works offline.', link: '#', images: ["/proxenta/contactpoint/appicons.png", "/proxenta/contactpoint/login.png", "/proxenta/contactpoint/dashboard.png", "/proxenta/contactpoint/search.png", "/proxenta/contactpoint/profile.png", "/proxenta/contactpoint/export.png"].map(withBaseURL) },
 			{ name: 'VarioStep', description: 'Enterprise energy management platform', link: '#'
 			// , images: ["/microstep/variostep/sysconf.png", "/microstep/variostep/customer.png"].map(withBaseURL) 
 			},
