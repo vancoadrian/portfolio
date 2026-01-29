@@ -257,8 +257,8 @@ const projectCategories = [
 			{ name: 'Xenergie', description: 'Energy data analytics and reporting system', link: '#'
 			// , images: ["/microstep/variostepone/treeview.png", "/microstep/variostepone/anomalydef.png"].map(withBaseURL) 
 		},
-			{ name: 'VarioStep One', description: 'Android web app (Xamarin) for scanning QR codes to link energy devices', link: '#'
-			// , images: ["/microstep/mobilewebapp/landing.png", "/microstep/mobilewebapp/webview.png"].map(withBaseURL) 
+			{ name: 'VarioStep One', description: 'Android web app (.NET MAUI) for scanning QR codes to link energy devices', link: '#'
+			// , images: ["/microstep/android/1.jpeg", "/microstep/android/2.jpeg", "/microstep/android/3.jpeg", "/microstep/android/4.jpeg"].map(withBaseURL) 
 			},
 			{ name: 'ACON', description: 'Advanced control and monitoring for energy networks', link: '#'
 			// , images: ["/microstep/acon/calcoverview.png", "/microstep/acon/columns.png", "/microstep/acon/trafosvg.png", "/microstep/acon/export.png", "/microstep/acon/imports.png", "/microstep/acon/importstatus.png", "/microstep/acon/processeshistory.png"].map(withBaseURL) 
@@ -297,7 +297,7 @@ const projectCategories = [
 		icon: 'mdi:robot',
 		items: [
 			{ name: 'Smart Meeting Room Solution', description: 'Automated smart home solution for meeting rooms', link: '#', images: ["/confroom/smart/all.png", "/confroom/smart/setup.png"].map(withBaseURL) },
-			{ name: 'Conference Room Online Meetings', description: 'Integrated conference solution for online meetings in meeting rooms', link: '#' },
+			{ name: 'Conference Room Online Meetings', description: 'Integrated conference solution for online meetings in meeting rooms', link: '#', images: ["/confroom/meet/1.jpeg", "/confroom/meet/2.jpeg", "/confroom/meet/3.jpeg"].map(withBaseURL) },
 			{ name: 'Car Lift Info Website', description: 'Website providing real-time status and information about the car lift system', link: '#', images: ["/carnotifysys/3.png"].map(withBaseURL) },
 			{ name: 'Car Lift Unloading Notification System', description: 'System that sends SMS and Microsoft Teams notifications when a car is unloaded from the lift', link: '#', images: ["/carnotifysys/1.png", "/carnotifysys/2.png"].map(withBaseURL) },
 			{ name: 'Group Policy Automation', description: 'Automated management and deployment of Windows Group Policy Objects (GPOs)', link: '#' },
@@ -308,9 +308,11 @@ const projectCategories = [
 		category: 'Electronics',
 		icon: 'mdi:chip',
 		items: [
-			{ name: 'Raspberry Pi NAS', description: 'Network Attached Storage built with Raspberry Pi', link: '#', images: ["/openvault/dashboard.png", "/openvault/1.png"].map(withBaseURL) },
+			{ name: 'Raspberry Pi NAS OpenMediaVault', description: 'Network Attached Storage built with Raspberry Pi', link: '#', images: ["/openvault/dashboard.png", "/openvault/1.png", "/openvault/2.jpeg"].map(withBaseURL) },
 			{ name: 'Raspberry Pi MagicMirror', description: 'MagicMirror project using Raspberry Pi for displaying presentation material', link: '#', images: ["/magicmirror/3.png", "/magicmirror/2.png", "/magicmirror/1.png"].map(withBaseURL) },
-			{ name: 'Network Room Temperature Monitoring (planned)', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#', images: ["/tempmonitor/1.jpg"].map(withBaseURL) },
+			{ name: 'Raspberry Pi HomeAssistant', description: 'HomeAssistant project using Raspberry Pi for home automation', link: '#', images: ["/homeassistant/1.jpeg"].map(withBaseURL) },
+			{ name: 'Raspberry Pi Twingate VPN + RustDesk', description: 'VPN and remote desktop solution using Twingate and RustDesk on Raspberry Pi', link: '#', images: ["/rustdesktwingate/1.jpeg"].map(withBaseURL) },
+			{ name: 'Network Room Temperature Monitoring', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#', images: ["/tempmonitor/1.jpeg", "/tempmonitor/2.jpeg", "/tempmonitor/3.jpeg", "/tempmonitor/4.jpeg"].map(withBaseURL) },
 		]
 	},
 	{
