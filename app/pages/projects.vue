@@ -312,7 +312,7 @@ const projectCategories = [
 			{ name: 'Raspberry Pi MagicMirror', description: 'MagicMirror project using Raspberry Pi for displaying presentation material', link: '#', images: ["/magicmirror/3.png", "/magicmirror/2.png", "/magicmirror/1.png"].map(withBaseURL) },
 			{ name: 'Raspberry Pi HomeAssistant', description: 'HomeAssistant project using Raspberry Pi for home automation', link: '#', images: ["/homeassistant/1.jpeg"].map(withBaseURL) },
 			{ name: 'Raspberry Pi Twingate VPN + RustDesk', description: 'VPN and remote desktop solution using Twingate and RustDesk on Raspberry Pi', link: '#', images: ["/rustdesktwingate/1.jpeg"].map(withBaseURL) },
-			{ name: 'Network Room Temperature Monitoring', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#', images: ["/tempmonitor/1.jpeg", "/tempmonitor/2.jpeg", "/tempmonitor/3.jpeg", "/tempmonitor/4.jpeg"].map(withBaseURL) },
+			{ name: 'Network Room Temperature Monitoring', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#', images: ["/tempmonitor/1.jpeg", "/tempmonitor/2.jpeg", "/tempmonitor/3.jpeg", "/tempmonitor/4.jpeg", "/tempmonitor/5.jpeg", "/tempmonitor/6.jpeg"].map(withBaseURL) },
 		]
 	},
 	{
