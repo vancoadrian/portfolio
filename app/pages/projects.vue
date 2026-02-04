@@ -237,13 +237,78 @@ const projectCategories = [
 		category: 'Presentation Websites (Nuxt)',
 		icon: 'mdi:web',
 		items: [
-			{ name: 'Car Service Website', description: 'Website for a car service business', link: '#', images: ["/webs/car-service/desktop/homecookies.png", "/webs/car-service/desktop/contact.png", "/webs/car-service/desktop/services.png", "/webs/car-service/mobile/homecookies.png", "/webs/car-service/mobile/homemenu.png", "/webs/car-service/mobile/contact.png"].map(withBaseURL) },
-			{ name: 'Towing Service Website', description: 'Website for a towing service', link: '#', images: ["/webs/towing-service/desktop/home.png", "/webs/towing-service/desktop/services.png", "/webs/towing-service/desktop/contact.png", "/webs/towing-service/mobile/home.png", "/webs/towing-service/mobile/services.png", "/webs/towing-service/mobile/contact.png"].map(withBaseURL) },
-			{ name: 'Fishing Lake Website', description: 'Presentation site for a fishing lake', link: '#', images: ["/webs/pond/desktop/home.png", "/webs/pond/desktop/gallery.png", "/webs/pond/desktop/pricelist.png", "/webs/pond/desktop/contact.png", "/webs/pond/mobile/home.png", "/webs/pond/mobile/gallery.png", "/webs/pond/mobile/pricelist.png", "/webs/pond/mobile/contact.png"].map(withBaseURL) },
-			{ name: 'Car Transport to Airport Website', description: 'Booking site for airport car transport', link: '#', images: ["/webs/airport-transport/desktop/home.png", "/webs/airport-transport/desktop/pricelist.png", "/webs/airport-transport/desktop/homefull.png"].map(withBaseURL) },
+			{ 
+				name: 'Car Service Website', 
+				description: 'Website for a car service business with contact form and CAPTCHA. Supports dark/light mode.', 
+				link: '#', 
+				images: [
+					"/webs/car-service/desktop/homecookies.png", 
+					"/webs/car-service/desktop/contact.png", 
+					"/webs/car-service/desktop/services.png", 
+					"/webs/car-service/mobile/homecookies.png", 
+					"/webs/car-service/mobile/homemenu.png", 
+					"/webs/car-service/mobile/contact.png"
+				].map(withBaseURL) 
+			},
+			{ 
+				name: 'Towing Service Website', 
+				description: 'Website for a towing service with booking form and CAPTCHA. Supports dark/light mode.', 
+				link: '#', 
+				images: [
+					"/webs/towing-service/desktop/home.png", 
+					"/webs/towing-service/desktop/services.png", 
+					"/webs/towing-service/desktop/contact.png", 
+					"/webs/towing-service/mobile/home.png", 
+					"/webs/towing-service/mobile/services.png", 
+					"/webs/towing-service/mobile/contact.png"
+				].map(withBaseURL) 
+			},
+			{ 
+				name: 'Fishing Lake Website', 
+				description: 'Presentation site for a fishing lake with gallery.', 
+				link: '#', 
+				images: [
+					"/webs/pond/desktop/home.png", 
+					"/webs/pond/desktop/gallery.png", 
+					"/webs/pond/desktop/pricelist.png", 
+					"/webs/pond/desktop/contact.png", 
+					"/webs/pond/mobile/home.png", 
+					"/webs/pond/mobile/gallery.png", 
+					"/webs/pond/mobile/pricelist.png", 
+					"/webs/pond/mobile/contact.png"
+				].map(withBaseURL) 
+			},
+			{ 
+				name: 'Car Transport to Airport Website', 
+				description: 'Presentation site for car transport to airport with price list and contact form. (EN/SK i18n)',
+				link: '#', 
+				images: [
+					"/webs/airport-transport/desktop/home.png", 
+					"/webs/airport-transport/desktop/pricelist.png", 
+					"/webs/airport-transport/desktop/homefull.png"
+				].map(withBaseURL) 
+			},
 			{ name: 'Car Detailing Website (planned)', description: 'Website for car detailing services', link: '#' },
 			{ name: 'Home Cleaning Service Website (planned)', description: 'Website for home cleaning services', link: '#' },
 			{ name: 'Electro Service Website (planned)', description: 'Website for electrical services', link: '#' },
+		]
+	},
+	{
+		category: 'ChatApp (Quasar + NestJS)',
+		icon: 'mdi:forum',
+		items: [
+			{ 
+				name: 'ChatRooms', 
+				description: 'Real-time chat app with WebSockets, built using Quasar (Vue) for the frontend and NestJS for the backend. Features include user authentication, persistent chat history with BetterSQLite3, and comprehensive E2E testing with Cypress.', 
+				link: '#', 
+				images: [
+					"/chatapp/rooms.png", 
+					"/chatapp/login.png", 
+					"/chatapp/roommembersdialog.png", 
+					"/chatapp/dualchat.png",
+					"/chatapp/e2e6.png"
+				].map(withBaseURL) 
+			},
 		]
 	},
 	{
@@ -312,8 +377,7 @@ const projectCategories = [
 			{ name: 'Raspberry Pi MagicMirror', description: 'MagicMirror project using Raspberry Pi for displaying presentation material', link: '#', images: ["/magicmirror/3.png", "/magicmirror/2.png", "/magicmirror/1.png"].map(withBaseURL) },
 			{ name: 'Raspberry Pi HomeAssistant', description: 'HomeAssistant project using Raspberry Pi for home automation', link: '#', images: ["/homeassistant/1.jpeg"].map(withBaseURL) },
 			{ name: 'Raspberry Pi Twingate VPN + RustDesk', description: 'VPN and remote desktop solution using Twingate and RustDesk on Raspberry Pi', link: '#', images: ["/rustdesktwingate/1.jpeg"].map(withBaseURL) },
-			{ name: 'Network Room Temperature Monitoring', description: 'Monitoring network room temperature using ESP32 with notifications to server and SMS', link: '#', images: ["/tempmonitor/1.jpeg", "/tempmonitor/2.jpeg", "/tempmonitor/3.jpeg", "/tempmonitor/4.jpeg", "/tempmonitor/5.jpeg", "/tempmonitor/6.jpeg"].map(withBaseURL) },
-		]
+			{ name: 'Network Room Temperature Monitoring', description: 'Monitoring network room temperature using ESP32, sending data to Centreon via SNMP with notifications SMS', link: '#', images: ["/tempmonitor/1.jpeg", "/tempmonitor/2.jpeg", "/tempmonitor/3.jpeg", "/tempmonitor/4.jpeg", "/tempmonitor/5.jpeg", "/tempmonitor/6.jpeg"].map(withBaseURL) },]
 	},
 	{
 		category: 'DIY',
