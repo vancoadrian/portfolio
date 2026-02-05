@@ -299,14 +299,19 @@ const projectCategories = [
 		items: [
 			{ 
 				name: 'ChatRooms', 
-				description: 'Real-time chat app with WebSockets, built using Quasar (Vue) for the frontend and NestJS for the backend. Features include user authentication, persistent chat history with BetterSQLite3, and comprehensive E2E testing with Cypress.', 
+				description: 'Real-time chat app with WebSockets, built using Quasar (Vue) for the frontend and NestJS for the backend. Features include user authentication, persistent chat history with BetterSQLite3, comprehensive E2E testing with Cypress, and Swagger API documentation.', 
 				link: '#', 
 				images: [
 					"/chatapp/rooms.png", 
 					"/chatapp/login.png", 
 					"/chatapp/roommembersdialog.png", 
 					"/chatapp/dualchat.png",
-					"/chatapp/e2e6.png"
+					"/chatapp/e2e6.png",
+					"/chatapp/swag.png",
+					"/chatapp/swag2.png",
+					"/chatapp/swag3.png",
+					"/chatapp/swag4.png",
+					"/chatapp/swag5.png"
 				].map(withBaseURL) 
 			},
 		]
