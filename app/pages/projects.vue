@@ -322,19 +322,19 @@ const projectCategories = [
 		items: [
 			{ name: 'ContactPoint PWA', description: 'PWA Internal portal connected to AD to see own business contact card and work colleagues contact cards with export features. Also works offline.', link: '#', images: ["/proxenta/contactpoint/appicons.png", "/proxenta/contactpoint/login.png", "/proxenta/contactpoint/dashboard.png", "/proxenta/contactpoint/search.png", "/proxenta/contactpoint/profile.png", "/proxenta/contactpoint/export.png"].map(withBaseURL) },
 			{ name: 'VarioStep', description: 'Enterprise energy management platform', link: '#'
-			// , images: ["/microstep/variostep/sysconf.png", "/microstep/variostep/customer.png"].map(withBaseURL) 
+			, images: ["/microstep/variostep/sysconf.png", "/microstep/variostep/customer.png"].map(withBaseURL) 
 			},
 			{ name: 'Xenergie', description: 'Energy data analytics and reporting system', link: '#'
-			// , images: ["/microstep/variostepone/treeview.png", "/microstep/variostepone/anomalydef.png"].map(withBaseURL) 
+			, images: ["/microstep/variostepone/treeview.png", "/microstep/variostepone/anomalydef.png"].map(withBaseURL) 
 		},
 			{ name: 'VarioStep One', description: 'Android web app (.NET MAUI) for scanning QR codes to link energy devices', link: '#'
-			// , images: ["/microstep/android/1.jpeg", "/microstep/android/2.jpeg", "/microstep/android/3.jpeg", "/microstep/android/4.jpeg"].map(withBaseURL) 
+			, images: ["/microstep/android/1.jpeg", "/microstep/android/2.jpeg", "/microstep/android/3.jpeg", "/microstep/android/4.jpeg"].map(withBaseURL) 
 			},
 			{ name: 'ACON', description: 'Advanced control and monitoring for energy networks', link: '#'
-			// , images: ["/microstep/acon/calcoverview.png", "/microstep/acon/columns.png", "/microstep/acon/trafosvg.png", "/microstep/acon/export.png", "/microstep/acon/imports.png", "/microstep/acon/importstatus.png", "/microstep/acon/processeshistory.png"].map(withBaseURL) 
+			, images: ["/microstep/acon/calcoverview.png", "/microstep/acon/columns.png", "/microstep/acon/trafosvg.png", "/microstep/acon/export.png", "/microstep/acon/imports.png", "/microstep/acon/importstatus.png", "/microstep/acon/processeshistory.png"].map(withBaseURL) 
 			},
 			{ name: 'ISAF (in progress)', description: 'Integrated system for asset and facility management', link: '#'
-			// , images: ["/microstep/isaf/assets.png", "/microstep/isaf/customers.png", "/microstep/isaf/subpoints.png"].map(withBaseURL) 
+			, images: ["/microstep/isaf/assets.png", "/microstep/isaf/customers.png", "/microstep/isaf/subpoints.png"].map(withBaseURL) 
 			},
 		]
 	},
