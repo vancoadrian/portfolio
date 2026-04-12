@@ -34,7 +34,7 @@
 				</div>
 
 				<!-- Modal -->
-				<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+				<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" @click.self="selectedProject = null">
 					<div class="bg-gray-950 rounded-2xl shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in">
 						<button @click="selectedProject = null" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
 							<Icon name="mdi:close" />
@@ -49,17 +49,17 @@
 																										<img :src="selectedProject.images[0]" class="rounded-lg border border-gray-800 w-full max-h-64 object-cover shadow hover:scale-105 transition" />
 																									</button>
 																								</div>
-																								<div v-if="selectedProject.images.length > 1" class="flex gap-3 overflow-x-auto max-w-full pb-1" style="scrollbar-width: thin;">
-																									<div class="flex gap-3 min-w-fit">
-																										<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" class="w-24 h-20 flex-shrink-0 focus:outline-none">
-																											<img :src="img" class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
-																										</button>
-																									</div>
+																								<div v-if="selectedProject.images.length > 1" class="overflow-x-auto pb-1 pr-1" style="scrollbar-width: thin;">
+																										<div class="flex flex-nowrap gap-3 min-w-max">
+																											<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" class="w-24 h-20 flex-shrink-0 focus:outline-none">
+																												<img :src="img" class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
+																											</button>
+																										</div>
 																								</div>
 																							</div>
 
 														<!-- Lightbox Modal -->
-														<div v-if="lightboxImage" class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 select-none">
+														<div v-if="lightboxImage" class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 select-none" @click.self="closeLightbox">
 															<button @click="closeLightbox" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl focus:outline-none z-20 bg-gray-900/80 rounded-full p-1">
 																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
 															</button>
