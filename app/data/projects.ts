@@ -3,6 +3,7 @@ export interface ProjectItemData {
   descriptionKey: string;
   link: string;
   images?: string[];
+  featured?: boolean;
 }
 
 export interface ProjectCategoryData {
@@ -20,6 +21,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.carServiceWebsite.name',
         descriptionKey: 'projectsData.items.carServiceWebsite.description',
         link: '#',
+        featured: true,
         images: [
           '/webs/car-service/desktop/homecookies.png',
           '/webs/car-service/desktop/contact.png',
@@ -92,6 +94,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.chatRooms.name',
         descriptionKey: 'projectsData.items.chatRooms.description',
         link: '#',
+        featured: true,
         images: [
           '/chatapp/rooms.png',
           '/chatapp/login.png',
@@ -115,6 +118,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.contactPointPwa.name',
         descriptionKey: 'projectsData.items.contactPointPwa.description',
         link: '#',
+        featured: true,
         images: [
           '/proxenta/contactpoint/appicons.png',
           '/proxenta/contactpoint/login.png',

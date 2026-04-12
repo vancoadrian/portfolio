@@ -19,6 +19,8 @@
     "seoDescription": "Selected projects across web apps, enterprise systems, automation, and electronics.",
     "title": "Projects",
     "subtitle": "A selection of my work",
+    "featuredTitle": "Featured Projects",
+    "featuredSubtitle": "A quick view of projects I am most proud of",
     "searchPlaceholder": "Search projects",
     "filterLabel": "Filter by category",
     "allCategories": "All categories",

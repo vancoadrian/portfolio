@@ -19,6 +19,8 @@
     "seoDescription": "Výber projektov z webových aplikácií, enterprise systémov, automatizácie a elektroniky.",
     "title": "Projekty",
     "subtitle": "Výber mojej práce",
+    "featuredTitle": "Vybrané projekty",
+    "featuredSubtitle": "Rýchly prehľad projektov, na ktoré som najviac hrdý",
     "searchPlaceholder": "Hľadať projekty",
     "filterLabel": "Filtrovať podľa kategórie",
     "allCategories": "Všetky kategórie",

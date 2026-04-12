@@ -12,6 +12,25 @@
 				<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('projectsPage.subtitle') }}</div>
 			</div>
 			<div class="px-8 pb-12 pt-8">
+				<div v-if="featuredProjects.length" class="mb-10">
+					<h2 class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-blue-500 pl-3 pb-2 mb-2 relative">
+						<Icon name="mdi:star-circle" class="text-xl text-blue-400" />{{ t('projectsPage.featuredTitle') }}
+						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
+					</h2>
+					<div class="text-gray-400 text-sm mb-4">{{ t('projectsPage.featuredSubtitle') }}</div>
+					<div class="grid gap-4 md:grid-cols-3">
+						<button
+							v-for="item in featuredProjects"
+							:key="`featured-${item.name}`"
+							@click="openProject(item)"
+							class="text-left rounded-xl border border-blue-800/70 bg-blue-950/30 p-4 shadow hover:shadow-lg hover:border-blue-500 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+						>
+							<div class="font-semibold text-gray-100 text-base mb-1">{{ item.name }}</div>
+							<div class="text-gray-400 text-sm line-clamp-4">{{ item.description }}</div>
+						</button>
+					</div>
+				</div>
+
 				<div class="mb-8 grid gap-3 sm:grid-cols-2">
 					<label class="block">
 						<span class="sr-only">{{ t('projectsPage.searchPlaceholder') }}</span>
@@ -192,9 +211,14 @@ const localizedProjectCategories = computed(() => projectCategoriesData.map((cat
 		name: t(item.nameKey),
 		description: t(item.descriptionKey),
 		link: item.link,
+		featured: !!item.featured,
 		images: item.images?.map(withBaseURL),
 	})),
 })));
+
+const featuredProjects = computed(() => localizedProjectCategories.value
+	.flatMap((cat) => cat.items.filter((item) => item.featured))
+	.slice(0, 3));
 
 const filteredProjectCategories = computed(() => {
 	const query = searchQuery.value.trim().toLowerCase();
