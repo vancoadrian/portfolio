@@ -12,7 +12,33 @@
 				<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('projectsPage.subtitle') }}</div>
 			</div>
 			<div class="px-8 pb-12 pt-8">
-				<div v-for="cat in projectCategories" :key="cat.category" class="mb-10">
+				<div class="mb-8 grid gap-3 sm:grid-cols-2">
+					<label class="block">
+						<span class="sr-only">{{ t('projectsPage.searchPlaceholder') }}</span>
+						<input
+							v-model="searchQuery"
+							type="search"
+							:placeholder="t('projectsPage.searchPlaceholder')"
+							class="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						/>
+					</label>
+					<label class="block">
+						<span class="sr-only">{{ t('projectsPage.filterLabel') }}</span>
+						<select
+							v-model="activeCategory"
+							class="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						>
+							<option value="all">{{ t('projectsPage.allCategories') }}</option>
+							<option v-for="cat in localizedProjectCategories" :key="cat.key" :value="cat.key">{{ cat.category }}</option>
+						</select>
+					</label>
+				</div>
+
+				<div v-if="!filteredProjectCategories.length" class="mb-10 rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-6 text-center text-gray-400">
+					{{ t('projectsPage.noResults') }}
+				</div>
+
+				<div v-for="cat in filteredProjectCategories" :key="cat.key" class="mb-10">
 					<h2 class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
 						<Icon :name="cat.icon" class="text-xl" />{{ cat.category }}
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
@@ -107,8 +133,9 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRuntimeConfig } from '#imports';
+import { projectCategoriesData } from '~/data/projects';
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -154,6 +181,35 @@ const panY = ref(0);
 const isDragging = ref(false);
 const dragStart = ref({ x: 0, y: 0 });
 const panStart = ref({ x: 0, y: 0 });
+const searchQuery = ref('');
+const activeCategory = ref('all');
+
+const localizedProjectCategories = computed(() => projectCategoriesData.map((cat, catIndex) => ({
+	key: String(catIndex),
+	icon: cat.icon,
+	category: t(cat.categoryKey),
+	items: cat.items.map((item) => ({
+		name: t(item.nameKey),
+		description: t(item.descriptionKey),
+		link: item.link,
+		images: item.images?.map(withBaseURL),
+	})),
+})));
+
+const filteredProjectCategories = computed(() => {
+	const query = searchQuery.value.trim().toLowerCase();
+
+	return localizedProjectCategories.value
+		.filter((cat) => activeCategory.value === 'all' || cat.key === activeCategory.value)
+		.map((cat) => ({
+			...cat,
+			items: cat.items.filter((item) => {
+				if (!query) return true;
+				return `${item.name} ${item.description}`.toLowerCase().includes(query);
+			}),
+		}))
+		.filter((cat) => cat.items.length > 0);
+});
 
 function closeProjectModal() {
 	selectedProject.value = null;
@@ -302,170 +358,4 @@ onMounted(() => {
 onBeforeUnmount(() => {
 	window.removeEventListener('keydown', onKeydown);
 });
-
-const projectCategories = [
-	{
-		category: 'Presentation Websites (Nuxt)',
-		icon: 'mdi:web',
-		items: [
-			{ 
-				name: 'Car Service Website', 
-				description: 'Website for a car service business with contact form and CAPTCHA. Supports dark/light mode.', 
-				link: '#', 
-				images: [
-					"/webs/car-service/desktop/homecookies.png", 
-					"/webs/car-service/desktop/contact.png", 
-					"/webs/car-service/desktop/services.png", 
-					"/webs/car-service/mobile/homecookies.png", 
-					"/webs/car-service/mobile/homemenu.png", 
-					"/webs/car-service/mobile/contact.png"
-				].map(withBaseURL) 
-			},
-			{ 
-				name: 'Towing Service Website', 
-				description: 'Website for a towing service with booking form and CAPTCHA. Supports dark/light mode.', 
-				link: '#', 
-				images: [
-					"/webs/towing-service/desktop/home.png", 
-					"/webs/towing-service/desktop/services.png", 
-					"/webs/towing-service/desktop/contact.png", 
-					"/webs/towing-service/mobile/home.png", 
-					"/webs/towing-service/mobile/services.png", 
-					"/webs/towing-service/mobile/contact.png"
-				].map(withBaseURL) 
-			},
-			{ 
-				name: 'Fishing Lake Website', 
-				description: 'Presentation site for a fishing lake with gallery.', 
-				link: '#', 
-				images: [
-					"/webs/pond/desktop/home.png", 
-					"/webs/pond/desktop/gallery.png", 
-					"/webs/pond/desktop/pricelist.png", 
-					"/webs/pond/desktop/contact.png", 
-					"/webs/pond/mobile/home.png", 
-					"/webs/pond/mobile/gallery.png", 
-					"/webs/pond/mobile/pricelist.png", 
-					"/webs/pond/mobile/contact.png"
-				].map(withBaseURL) 
-			},
-			{ 
-				name: 'Car Transport to Airport Website', 
-				description: 'Presentation site for car transport to airport with price list and contact form. (EN/SK i18n)',
-				link: '#', 
-				images: [
-					"/webs/airport-transport/desktop/home.png", 
-					"/webs/airport-transport/desktop/pricelist.png", 
-					"/webs/airport-transport/desktop/homefull.png"
-				].map(withBaseURL) 
-			},
-			{ name: 'Car Detailing Website (planned)', description: 'Website for car detailing services', link: '#' },
-			{ name: 'Home Cleaning Service Website (planned)', description: 'Website for home cleaning services', link: '#' },
-			{ name: 'Electro Service Website (planned)', description: 'Website for electrical services', link: '#' },
-		]
-	},
-	{
-		category: 'ChatApp (Quasar + NestJS)',
-		icon: 'mdi:forum',
-		items: [
-			{ 
-				name: 'ChatRooms', 
-				description: 'Real-time chat app with WebSockets, built using Quasar (Vue) for the frontend and NestJS for the backend. Features include user authentication, persistent chat history with BetterSQLite3, comprehensive E2E testing with Cypress, and Swagger API documentation.', 
-				link: '#', 
-				images: [
-					"/chatapp/rooms.png", 
-					"/chatapp/login.png", 
-					"/chatapp/roommembersdialog.png", 
-					"/chatapp/dualchat.png",
-					"/chatapp/e2e6.png",
-					"/chatapp/swag.png",
-					"/chatapp/swag2.png",
-					"/chatapp/swag3.png",
-					"/chatapp/swag4.png",
-					"/chatapp/swag5.png"
-				].map(withBaseURL) 
-			},
-		]
-	},
-	{
-		category: 'Enterprise Projects (Angular)',
-		icon: 'mdi:lightning-bolt',
-		items: [
-			{ name: 'ContactPoint PWA', description: 'PWA Internal portal connected to AD to see own business contact card and work colleagues contact cards with export features. Also works offline.', link: '#', images: ["/proxenta/contactpoint/appicons.png", "/proxenta/contactpoint/login.png", "/proxenta/contactpoint/dashboard.png", "/proxenta/contactpoint/search.png", "/proxenta/contactpoint/profile.png", "/proxenta/contactpoint/export.png"].map(withBaseURL) },
-			{ name: 'VarioStep', description: 'Enterprise energy management platform', link: '#'
-			, images: ["/microstep/variostep/sysconf.png", "/microstep/variostep/customer.png"].map(withBaseURL) 
-			},
-			{ name: 'Xenergie', description: 'Energy data analytics and reporting system', link: '#'
-			, images: ["/microstep/variostepone/treeview.png", "/microstep/variostepone/anomalydef.png"].map(withBaseURL) 
-		},
-			{ name: 'VarioStep One', description: 'Android web app (.NET MAUI) for scanning QR codes to link energy devices', link: '#'
-			, images: ["/microstep/android/1.jpeg", "/microstep/android/2.jpeg", "/microstep/android/3.jpeg", "/microstep/android/4.jpeg"].map(withBaseURL) 
-			},
-			{ name: 'ACON', description: 'Advanced control and monitoring for energy networks', link: '#'
-			, images: ["/microstep/acon/calcoverview.png", "/microstep/acon/columns.png", "/microstep/acon/trafosvg.png", "/microstep/acon/export.png", "/microstep/acon/imports.png", "/microstep/acon/importstatus.png", "/microstep/acon/processeshistory.png"].map(withBaseURL) 
-			},
-			{ name: 'ISAF (in progress)', description: 'Integrated system for asset and facility management', link: '#'
-			, images: ["/microstep/isaf/assets.png", "/microstep/isaf/customers.png", "/microstep/isaf/subpoints.png"].map(withBaseURL) 
-			},
-		]
-	},
-	{
-		category: 'IT Administrator',
-		icon: 'mdi:server',
-		items: [
-			{ name: 'Server Administration', description: 'Managed Windows and Linux servers, including setup, maintenance, and troubleshooting', link: '#', images: ["/proxenta/vmware.png"].map(withBaseURL) },
-			{ name: 'MS365 Administration', description: 'Administered Microsoft 365 services including Exchange, Teams, and licensing', link: '#' },
-			{ name: 'SharePoint Administration', description: 'Managed and customized SharePoint sites for collaboration', link: '#' },
-			{ name: 'Active Directory Migration', description: 'Migrated users and resources to Active Directory for centralized management', link: '#', images: ["/proxenta/ad/info.png"].map(withBaseURL) },
-			{ name: 'Fileserver Permissions Migration', description: 'Migrated file server permissions from user-based to group-based (created 500+ groups) for easier access management', link: '#', images: ["/proxenta/ad/groups.png"].map(withBaseURL) },
-			{ name: 'NAS Backups', description: 'Implemented and managed NAS server backups for data protection', link: '#' },
-			{ name: 'Domain Management', description: 'Managed domains and DNS records via web admin portals (registrars, hosting providers)', link: '#' },
-			{ name: 'Monitoring', description: 'Implemented monitoring solutions for servers and network infrastructure', link: '#' },
-			{ name: 'Microsoft Bookings', description: 'Set up Microsoft Bookings for company car reservations', link: '#' },
-			{ name: 'Microsoft Forms', description: 'Created and managed Microsoft Forms for internal processes', link: '#' },
-			{ name: 'TeamViewer Management', description: 'Managed TeamViewer for remote support and access', link: '#' },
-			{ name: 'IT Inventory Management', description: 'Tracked and managed company IT inventory', link: '#' },
-			{ name: 'Company Apps Management', description: 'Oversaw deployment and updates of company applications', link: '#' },
-			{ name: 'Bitdefender GravityZone', description: 'Managed antivirus protection with Bitdefender GravityZone', link: '#' },
-			{ name: 'Fortinet Management', description: 'Configured and managed Fortinet security appliances', link: '#' },
-			{ name: 'Ubiquiti Devices', description: 'Configured and maintained Ubiquiti UniFi devices for reliable networking', link: '#' },
-			{ name: 'Hikvision Surveillance', description: 'Configured and managed Hikvision surveillance cameras and NVRs for security monitoring', link: '#' },
-			{ name: 'Multi-Factor Authentication (MFA)', description: 'Implemented and managed MFA for enhanced security across company accounts and services', link: '#' },
-		]
-	},
-	{
-		category: 'Automation',
-		icon: 'mdi:robot',
-		items: [
-			{ name: 'Smart Meeting Room Solution', description: 'Automated smart home solution for meeting rooms', link: '#', images: ["/confroom/smart/all.png", "/confroom/smart/setup.png"].map(withBaseURL) },
-			{ name: 'Conference Room Online Meetings', description: 'Integrated conference solution for online meetings in meeting rooms', link: '#', images: ["/confroom/meet/1.jpeg", "/confroom/meet/2.jpeg", "/confroom/meet/3.jpeg"].map(withBaseURL) },
-			{ name: 'Car Lift Info Website', description: 'Website providing real-time status and information about the car lift system', link: '#', images: ["/carnotifysys/3.png"].map(withBaseURL) },
-			{ name: 'Car Lift Unloading Notification System', description: 'System that sends SMS and Microsoft Teams notifications when a car is unloaded from the lift', link: '#', images: ["/carnotifysys/1.png", "/carnotifysys/2.png"].map(withBaseURL) },
-			{ name: 'Group Policy Automation', description: 'Automated management and deployment of Windows Group Policy Objects (GPOs)', link: '#' },
-			{ name: 'CI/CD Pipelines', description: 'Automated deployment pipelines for web apps', link: '#' },
-		]
-	},
-	{
-		category: 'Electronics',
-		icon: 'mdi:chip',
-		items: [
-			{ name: 'Raspberry Pi NAS OpenMediaVault', description: 'Network Attached Storage built with Raspberry Pi', link: '#', images: ["/openvault/dashboard.png", "/openvault/1.png", "/openvault/2.jpeg"].map(withBaseURL) },
-			{ name: 'Raspberry Pi MagicMirror', description: 'MagicMirror project using Raspberry Pi for displaying presentation material', link: '#', images: ["/magicmirror/3.png", "/magicmirror/2.png", "/magicmirror/1.png"].map(withBaseURL) },
-			{ name: 'Raspberry Pi HomeAssistant', description: 'HomeAssistant project using Raspberry Pi for home automation', link: '#', images: ["/homeassistant/1.jpeg"].map(withBaseURL) },
-			{ name: 'Raspberry Pi Twingate VPN + RustDesk', description: 'VPN and remote desktop solution using Twingate and RustDesk on Raspberry Pi', link: '#', images: ["/rustdesktwingate/1.jpeg"].map(withBaseURL) },
-			{ name: 'Network Room Temperature Monitoring', description: 'Monitoring network room temperature using ESP32, sending data to Centreon via SNMP with notifications SMS', link: '#', images: ["/tempmonitor/1.jpeg", "/tempmonitor/2.jpeg", "/tempmonitor/3.jpeg", "/tempmonitor/4.jpeg", "/tempmonitor/5.jpeg", "/tempmonitor/6.jpeg"].map(withBaseURL) },]
-	},
-	{
-		category: 'DIY',
-		icon: 'mdi:tools',
-		items: [
-					{ 
-						name: 'Hyperlaps Board Game', 
-						description: 'A custom-designed electronic board game for 2-4 players, focused on strategy and racing mechanics. Each player uses a Bluetooth ESP32 gamepad with a joystick (to slide ships), a push-button (to activate the front bumper and eject the ball), and a 10-LED bargraph (to indicate score). When the ball falls, the receiver loses a point. The last player with points left wins.', 
-						link: '#' ,
-						images: ["/hyperlaps/1.png", "/hyperlaps/2.png", "/hyperlaps/3.png", "/hyperlaps/4.png", "/hyperlaps/5.png", "/hyperlaps/6.png", "/hyperlaps/7.png", "/hyperlaps/8.png", "/hyperlaps/9.png", "/hyperlaps/10.png", "/hyperlaps/11.png", "/hyperlaps/12.png", "/hyperlaps/13.png", "/hyperlaps/14.png", "/hyperlaps/15.png", "/hyperlaps/16.png", "/hyperlaps/17.png", "/hyperlaps/18.png"].map(withBaseURL)
-					},
-		]
-	},
-];
 </script>
