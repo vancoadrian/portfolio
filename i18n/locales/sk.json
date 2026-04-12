@@ -21,10 +21,17 @@
     "subtitle": "Výber mojej práce",
     "featuredTitle": "Vybrané projekty",
     "featuredSubtitle": "Rýchly prehľad projektov, na ktoré som najviac hrdý",
+    "featuredBadge": "Vybrané",
+    "searchLabel": "Hľadanie",
     "searchPlaceholder": "Hľadať projekty",
     "filterLabel": "Filtrovať podľa kategórie",
     "allCategories": "Všetky kategórie",
+    "resultsCount": "Nájdené projekty: {count}",
+    "clearFilters": "Vyčistiť filtre",
     "noResults": "Nenašli sa žiadne projekty podľa zadaného filtra.",
+    "ctaTitle": "Poďme sa spojiť",
+    "ctaDescription": "Kontaktujte ma priamo cez LinkedIn.",
+    "ctaLinkedIn": "Kontaktujte ma na LinkedIne",
     "showMore": "Zobraziť viac",
     "visitProject": "Navštíviť projekt",
     "zoom": "Priblíženie",
@@ -127,6 +134,9 @@
     "certIet": "IET akreditácia",
     "certGoogleAi": "Google AI Essentials",
     "certCcna": "CCNA 1, 2, IoT",
-    "certElectrical": "Paragraf 21 - Osvedčenie o odbornej spôsobilosti v elektrotechnike"
+    "certElectrical": "Paragraf 21 - Osvedčenie o odbornej spôsobilosti v elektrotechnike",
+    "ctaTitle": "Poďme sa spojiť",
+    "ctaDescription": "Kontaktujte ma priamo cez LinkedIn.",
+    "ctaLinkedIn": "Kontaktujte ma na LinkedIne"
   }
 }

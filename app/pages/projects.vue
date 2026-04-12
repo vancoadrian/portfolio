@@ -23,9 +23,10 @@
 							v-for="item in featuredProjects"
 							:key="`featured-${item.name}`"
 							@click="openProject(item)"
-							class="text-left rounded-xl border border-blue-800/70 bg-blue-950/30 p-4 shadow hover:shadow-lg hover:border-blue-500 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+							class="relative text-left rounded-xl border border-blue-800/70 bg-blue-950/30 p-4 shadow hover:shadow-lg hover:border-blue-500 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
 						>
-							<div class="font-semibold text-gray-100 text-base mb-1">{{ item.name }}</div>
+							<span class="absolute top-3 right-3 rounded-full border border-blue-500/60 bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-blue-300">{{ t('projectsPage.featuredBadge') }}</span>
+							<div class="mb-2 pr-16 font-semibold text-gray-100 text-base leading-tight">{{ item.name }}</div>
 							<div class="text-gray-400 text-sm line-clamp-4">{{ item.description }}</div>
 						</button>
 					</div>
@@ -33,7 +34,7 @@
 
 				<div class="mb-8 grid gap-3 sm:grid-cols-2">
 					<label class="block">
-						<span class="sr-only">{{ t('projectsPage.searchPlaceholder') }}</span>
+						<span class="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-400">{{ t('projectsPage.searchLabel') }}</span>
 						<input
 							v-model="searchQuery"
 							type="search"
@@ -42,7 +43,7 @@
 						/>
 					</label>
 					<label class="block">
-						<span class="sr-only">{{ t('projectsPage.filterLabel') }}</span>
+						<span class="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-400">{{ t('projectsPage.filterLabel') }}</span>
 						<select
 							v-model="activeCategory"
 							class="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -51,6 +52,18 @@
 							<option v-for="cat in localizedProjectCategories" :key="cat.key" :value="cat.key">{{ cat.category }}</option>
 						</select>
 					</label>
+				</div>
+
+				<div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+					<div class="text-sm text-gray-400">{{ t('projectsPage.resultsCount', { count: filteredProjectsCount }) }}</div>
+					<button
+						v-if="hasActiveFilters"
+						@click="clearFilters"
+						class="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-900/70 px-3 py-1.5 text-xs font-semibold text-gray-200 hover:bg-gray-800 transition"
+					>
+						<Icon name="mdi:filter-remove" class="text-sm" />
+						<span>{{ t('projectsPage.clearFilters') }}</span>
+					</button>
 				</div>
 
 				<div v-if="!filteredProjectCategories.length" class="mb-10 rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-6 text-center text-gray-400">
@@ -76,6 +89,17 @@
 							</button>
 						</li>
 					</ul>
+				</div>
+
+				<div class="rounded-2xl border border-gray-800 bg-gray-900/50 p-5">
+					<div class="text-base font-bold text-gray-100 mb-1">{{ t('projectsPage.ctaTitle') }}</div>
+					<div class="text-gray-400 text-sm mb-3">{{ t('projectsPage.ctaDescription') }}</div>
+					<div class="flex flex-wrap gap-3">
+						<a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-blue-700 bg-blue-900/40 px-4 py-2 text-sm font-semibold text-blue-100 hover:bg-blue-800/60 hover:text-white transition">
+							<Icon name="mdi:linkedin" class="text-base" />
+							<span>{{ t('projectsPage.ctaLinkedIn') }}</span>
+						</a>
+					</div>
 				</div>
 
 				<!-- Modal -->
@@ -234,6 +258,14 @@ const filteredProjectCategories = computed(() => {
 		}))
 		.filter((cat) => cat.items.length > 0);
 });
+
+const filteredProjectsCount = computed(() => filteredProjectCategories.value.reduce((acc, cat) => acc + cat.items.length, 0));
+const hasActiveFilters = computed(() => searchQuery.value.trim().length > 0 || activeCategory.value !== 'all');
+
+function clearFilters() {
+	searchQuery.value = '';
+	activeCategory.value = 'all';
+}
 
 function closeProjectModal() {
 	selectedProject.value = null;

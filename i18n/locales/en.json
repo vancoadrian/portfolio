@@ -21,10 +21,17 @@
     "subtitle": "A selection of my work",
     "featuredTitle": "Featured Projects",
     "featuredSubtitle": "A quick view of projects I am most proud of",
+    "featuredBadge": "Featured",
+    "searchLabel": "Search",
     "searchPlaceholder": "Search projects",
     "filterLabel": "Filter by category",
     "allCategories": "All categories",
+    "resultsCount": "{count} projects found",
+    "clearFilters": "Clear filters",
     "noResults": "No projects match your search.",
+    "ctaTitle": "Let's connect",
+    "ctaDescription": "Contact me directly on LinkedIn.",
+    "ctaLinkedIn": "Contact me on LinkedIn",
     "showMore": "Show more",
     "visitProject": "Visit Project",
     "zoom": "Zoom",
@@ -127,6 +134,9 @@
     "certIet": "IET Accreditation",
     "certGoogleAi": "Google AI Essentials",
     "certCcna": "CCNA 1, 2, IoT",
-    "certElectrical": "Section 21 - Certificate of Professional Competence in Electrical Engineering"
+    "certElectrical": "Section 21 - Certificate of Professional Competence in Electrical Engineering",
+    "ctaTitle": "Let's connect",
+    "ctaDescription": "Contact me directly on LinkedIn.",
+    "ctaLinkedIn": "Contact me on LinkedIn"
   }
 }

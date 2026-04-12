@@ -296,6 +296,16 @@
 						</li>
 					</ul>
 				</section>
+				<div class="rounded-2xl border border-gray-800 bg-gray-900/50 p-5 mt-8">
+					<div class="text-base font-bold text-gray-100 mb-1">{{ t('cvPage.ctaTitle') }}</div>
+					<div class="text-gray-400 text-sm mb-3">{{ t('cvPage.ctaDescription') }}</div>
+					<div class="flex flex-wrap gap-3">
+						<a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-blue-700 bg-blue-900/40 px-4 py-2 text-sm font-semibold text-blue-100 hover:bg-blue-800/60 hover:text-white transition">
+							<Icon name="mdi:linkedin" class="text-base" />
+							<span>{{ t('cvPage.ctaLinkedIn') }}</span>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
