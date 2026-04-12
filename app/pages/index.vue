@@ -50,7 +50,10 @@ useSeoMeta({
   description: () => t('home.seoDescription'),
   ogTitle: () => t('home.seoTitle'),
   ogDescription: () => t('home.seoDescription'),
+  ogUrl: () => canonicalURL.value,
   ogImage: () => ogImageURL.value,
+  twitterTitle: () => t('home.seoTitle'),
+  twitterDescription: () => t('home.seoDescription'),
   twitterImage: () => ogImageURL.value,
   twitterCard: 'summary_large_image',
 });

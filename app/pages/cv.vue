@@ -33,7 +33,7 @@
 					<ul class="space-y-2">
 						<li>
 							<span class="font-semibold text-gray-100">{{ t('cvPage.masterDegree') }}
-							</span>, FIIT STU <span class="text-gray-400">(2024-Present)</span>
+							</span>, FIIT STU <span class="text-gray-400">(2024-{{ t('cvPage.present') }})</span>
 						</li>
 						<li>
 							<span class="font-semibold text-gray-100">{{ t('cvPage.bachelorDegree') }}</span>, FIIT STU
@@ -149,12 +149,12 @@
 						<li>
 							<div class="font-semibold text-gray-100 text-base">{{ t('cvPage.jobItSpecialist') }}</div>
 							<div class="text-gray-400">PROXENTA Support s.r.o.<span
-									class="text-gray-500">(2022-Present)</span></div>
+									class="text-gray-500">(2022-{{ t('cvPage.present') }})</span></div>
 							<div class="text-gray-300 text-sm mt-1">{{ t('cvPage.jobItSpecialistDesc') }}</div>
 						</li>
 						<li>
 							<div class="font-semibold text-gray-100 text-base">{{ t('cvPage.jobAppDeveloper') }}</div>
-							<div class="text-gray-400">MicroStep - HDO s.r.o. <span class="text-gray-500">(2022-February
+							<div class="text-gray-400">MicroStep - HDO s.r.o. <span class="text-gray-500">(2022-{{ t('cvPage.february') }}
 									2026)</span></div>
 							<div class="text-gray-300 text-sm mt-1">{{ t('cvPage.jobAppDeveloperDesc') }}</div>
 						</li>
@@ -262,7 +262,7 @@
 								{{ t('cvPage.problemSolving') }}</li>
 							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
 								{{ t('cvPage.adaptability') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Time
+							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
 								{{ t('cvPage.timeManagement') }}</li>
 							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
 								{{ t('cvPage.uiuxDesign') }}</li>
@@ -326,7 +326,10 @@ useSeoMeta({
 	description: () => t('cvPage.seoDescription'),
 	ogTitle: () => t('cvPage.seoTitle'),
 	ogDescription: () => t('cvPage.seoDescription'),
+	ogUrl: () => canonicalURL.value,
 	ogImage: () => ogImageURL.value,
+	twitterTitle: () => t('cvPage.seoTitle'),
+	twitterDescription: () => t('cvPage.seoDescription'),
 	twitterImage: () => ogImageURL.value,
 	twitterCard: 'summary_large_image',
 });

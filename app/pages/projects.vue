@@ -133,7 +133,10 @@ useSeoMeta({
 	description: () => t('projectsPage.seoDescription'),
 	ogTitle: () => t('projectsPage.seoTitle'),
 	ogDescription: () => t('projectsPage.seoDescription'),
+	ogUrl: () => canonicalURL.value,
 	ogImage: () => ogImageURL.value,
+	twitterTitle: () => t('projectsPage.seoTitle'),
+	twitterDescription: () => t('projectsPage.seoDescription'),
 	twitterImage: () => ogImageURL.value,
 	twitterCard: 'summary_large_image',
 });
