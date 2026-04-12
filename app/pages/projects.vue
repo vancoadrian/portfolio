@@ -196,7 +196,14 @@ const ogImageURL = computed(() => {
 });
 
 useHead({
-	link: () => (canonicalURL.value ? [{ rel: 'canonical', href: canonicalURL.value }] : []),
+	link: () => {
+		const links = [
+			{ rel: 'icon', type: 'image/png', href: `${config.public.baseURL}icon.png` },
+			{ rel: 'icon', type: 'image/svg+xml', href: `${config.public.baseURL}portfolio_favicon_simple.svg` }
+		];
+		if (canonicalURL.value) links.push({ rel: 'canonical', href: canonicalURL.value });
+		return links;
+	},
 });
 
 useSeoMeta({

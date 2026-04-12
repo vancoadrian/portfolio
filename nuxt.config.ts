@@ -1,13 +1,22 @@
+/// <reference types="node" />
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const appBaseURL = process.env.NODE_ENV === 'production' ? '/portfolio/' : '/';
+
 export default defineNuxtConfig({
   app: {
+    baseURL: appBaseURL,
     head: {
       link: [
         {
           rel: 'icon',
+          type: 'image/png',
+          href: `${appBaseURL}icon.png`
+        },
+        {
+          rel: 'icon',
           type: 'image/svg+xml',
-          href: (process.env.NODE_ENV === 'production' ? '/portfolio/portfolio_favicon_simple.svg' : '/portfolio_favicon_simple.svg')
+          href: `${appBaseURL}portfolio_favicon_simple.svg`
         }
       ]
     }
@@ -45,7 +54,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
+      baseURL: appBaseURL,
       siteURL: process.env.NUXT_PUBLIC_SITE_URL || 'https://vancoadrian.github.io',
     }
   },
