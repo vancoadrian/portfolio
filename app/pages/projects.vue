@@ -187,7 +187,8 @@ const { t } = useI18n();
 const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
 const canonicalURL = computed(() => {
 	if (!siteURL.value) return '';
-	return `${siteURL.value}${route.path}`;
+	const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
+	return `${siteURL.value}${basePath}${route.path}`;
 });
 const ogImageURL = computed(() => {
 	const imagePath = `${config.public.baseURL}linkedin.jpg`;
