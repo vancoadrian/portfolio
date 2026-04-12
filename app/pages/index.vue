@@ -3,7 +3,7 @@
   <div class="flex flex-col sm:flex-row gap-10 sm:gap-16 w-full max-w-2xl px-4 pt-6 sm:pt-24 pb-24 items-center justify-center">
         <!-- Footer Social Media -->
         <footer class="w-full fixed left-0 bottom-0 z-30 bg-gray-950/90 border-t border-gray-800 flex justify-center py-3">
-          <a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-1 rounded bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-blue-700 hover:text-white transition shadow text-sm">
+          <a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-1 rounded bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-blue-700 hover:text-white transition shadow text-sm">
             <Icon name="mdi:linkedin" class="w-5 h-5" />
             <span>LinkedIn</span>
           </a>
@@ -25,18 +25,46 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 
-const categories = ref([
+const config = useRuntimeConfig();
+const route = useRoute();
+const { t } = useI18n();
+
+const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
+const canonicalURL = computed(() => {
+  if (!siteURL.value) return '';
+  return `${siteURL.value}${route.path}`;
+});
+const ogImageURL = computed(() => {
+  const imagePath = `${config.public.baseURL}linkedin.jpg`;
+  return siteURL.value ? `${siteURL.value}${imagePath.startsWith('/') ? imagePath : `/${imagePath}`}` : imagePath;
+});
+
+useHead({
+  link: () => (canonicalURL.value ? [{ rel: 'canonical', href: canonicalURL.value }] : []),
+});
+
+useSeoMeta({
+  title: () => t('home.seoTitle'),
+  description: () => t('home.seoDescription'),
+  ogTitle: () => t('home.seoTitle'),
+  ogDescription: () => t('home.seoDescription'),
+  ogImage: () => ogImageURL.value,
+  twitterImage: () => ogImageURL.value,
+  twitterCard: 'summary_large_image',
+});
+
+const categories = computed(() => [
   {
-    category: 'CV',
-    description: 'See my professional experience, education, and skills.',
+    category: t('home.cvTitle'),
+    description: t('home.cvDescription'),
     icon: 'mdi:account-box',
     link: '/cv',
   },
   {
-    category: 'Projects',
-    description: 'Browse my portfolio of web, automation, and electronics projects.',
+    category: t('home.projectsTitle'),
+    description: t('home.projectsDescription'),
     icon: 'mdi:folder',
     link: '/projects',
   },

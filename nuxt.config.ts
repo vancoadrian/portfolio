@@ -6,8 +6,8 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'icon',
-          type: 'image/x-icon',
-          href: (process.env.NODE_ENV === 'production' ? '/portfolio/favicon.ico' : '/favicon.ico')
+          type: 'image/svg+xml',
+          href: (process.env.NODE_ENV === 'production' ? '/portfolio/portfolio_favicon_simple.svg' : '/portfolio_favicon_simple.svg')
         }
       ]
     }
@@ -46,6 +46,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       baseURL: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
+      siteURL: process.env.NUXT_PUBLIC_SITE_URL || 'https://vancoadrian.github.io',
     }
   },
 

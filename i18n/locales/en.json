@@ -1,3 +1,67 @@
 {
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "common": {
+    "backHome": "Back Home",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "home": {
+    "seoTitle": "Adrian Vanco | Full-Stack Developer and IT Specialist",
+    "seoDescription": "Portfolio of Adrian Vanco featuring web development, automation, electronics, and enterprise IT projects.",
+    "cvTitle": "CV",
+    "cvDescription": "See my professional experience, education, and skills.",
+    "projectsTitle": "Projects",
+    "projectsDescription": "Browse my portfolio of web, automation, and electronics projects."
+  },
+  "projectsPage": {
+    "seoTitle": "Projects | Adrian Vanco",
+    "seoDescription": "Selected projects across web apps, enterprise systems, automation, and electronics.",
+    "title": "Projects",
+    "subtitle": "A selection of my work",
+    "showMore": "Show more",
+    "visitProject": "Visit Project",
+    "zoom": "Zoom",
+    "openImage": "Open image"
+  },
+  "cvPage": {
+    "seoTitle": "CV | Adrian Vanco",
+    "seoDescription": "CV of Adrian Vanco with education, experience, skills, and certifications.",
+    "role": "Full-Stack Developer & IT Specialist",
+    "location": "Bratislava, Slovakia",
+    "education": "Education",
+    "workExperience": "Work Experience",
+    "skills": "Skills",
+    "programming": "Programming",
+    "itAdministration": "IT Administration",
+    "softSkills": "Soft Skills",
+    "certificates": "Certificates",
+    "viewThesis": "View thesis",
+    "viewImages": "View Images",
+    "thesisImages": "Thesis Images",
+    "thesisImagesSubtitle": "Screenshots and diagrams from my BP thesis",
+    "zoom": "Zoom",
+    "openImage": "Open image",
+    "masterDegree": "Master's degree (Intelligent Software Systems)",
+    "bachelorDegree": "Bachelor's degree (Informatics)",
+    "secondarySchool": "Technical School of Electrical Engineering (Computer Systems)",
+    "githubSchool": "GitHub School",
+    "bachelorThesisLabel": "Bachelor thesis:",
+    "bachelorThesisDescription": "Developed a decentralized application marketplace utilizing IPv4 addresses on the IOTA network, with smart contracts in Solidity and a frontend in Angular integrated with MetaMask.",
+    "jobItSpecialist": "IT Specialist",
+    "jobAppDeveloper": "Application Developer",
+    "jobItSpecialistDesc": "Managing Active Directory, servers, MS365, and network infrastructure for an investment company.",
+    "jobAppDeveloperDesc": "Developing web applications in Angular for the energy sector. Built a mobile web app using Xamarin.",
+    "teamwork": "Teamwork",
+    "communication": "Communication",
+    "problemSolving": "Problem Solving",
+    "adaptability": "Adaptability",
+    "timeManagement": "Time Management",
+    "uiuxDesign": "UI/UX Design",
+    "algorithmicThinking": "Algorithmic Thinking",
+    "certIet": "IET Accreditation",
+    "certGoogleAi": "Google AI Essentials",
+    "certCcna": "CCNA 1, 2, IoT",
+    "certElectrical": "Section 21 - Certificate of Professional Competence in Electrical Engineering"
+  }
 }

@@ -3,13 +3,13 @@
 		<div class="absolute top-6 left-6 z-20">
 			<NuxtLink to="/" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white transition shadow">
 				<Icon name="mdi:arrow-left" class="text-lg" />
-				<span>Back Home</span>
+				<span>{{ t('common.backHome') }}</span>
 			</NuxtLink>
 		</div>
 		<div class="w-full max-w-3xl bg-gradient-to-br from-gray-950/95 to-gray-900/90 rounded-3xl shadow-2xl border border-gray-800 p-0 overflow-hidden">
 			<div class="flex flex-col items-center pt-10 pb-8 px-8 bg-gradient-to-b from-gray-950/80 to-gray-900/60 border-b border-gray-800">
-				<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Projects</h1>
-				<div class="text-gray-400 text-lg mb-2 font-medium">A selection of my work</div>
+				<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">{{ t('projectsPage.title') }}</h1>
+				<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('projectsPage.subtitle') }}</div>
 			</div>
 			<div class="px-8 pb-12 pt-8">
 				<div v-for="cat in projectCategories" :key="cat.category" class="mb-10">
@@ -26,7 +26,7 @@
 								</div>
 								<div v-if="item.images && item.images.length" class="flex items-center gap-1 text-blue-400 text-sm">
 									<Icon name="mdi:eye" class="text-base" />
-									<span>Show more</span>
+									<span>{{ t('projectsPage.showMore') }}</span>
 								</div>
 							</button>
 						</li>
@@ -34,51 +34,52 @@
 				</div>
 
 				<!-- Modal -->
-				<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" @click.self="selectedProject = null">
-					<div class="bg-gray-950 rounded-2xl shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in">
-						<button @click="selectedProject = null" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
+				<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" @click.self="closeProjectModal">
+					<div class="bg-gray-950 rounded-2xl shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in" tabindex="-1">
+						<button @click="closeProjectModal" :aria-label="t('common.close')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
 							<Icon name="mdi:close" />
 						</button>
 
 								<div class="mb-4">
-									<div class="text-2xl font-bold text-gray-100 mb-1">{{ selectedProject.name }}</div>
+									<div id="project-modal-title" class="text-2xl font-bold text-gray-100 mb-1">{{ selectedProject.name }}</div>
 									<div class="text-gray-400 mb-4">{{ selectedProject.description }}</div>
 																							<div v-if="selectedProject.images && selectedProject.images.length" class="pb-2">
 																								<div>
-																									<button v-if="selectedProject.images[0]" @click="openLightbox(selectedProject.images[0])" class="mb-3 w-full focus:outline-none">
-																										<img :src="selectedProject.images[0]" class="rounded-lg border border-gray-800 w-full max-h-64 object-cover shadow hover:scale-105 transition" />
+																					<button v-if="selectedProject.images[0]" @click="openLightbox(selectedProject.images[0])" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name}`" class="mb-3 w-full focus:outline-none">
+																						<img :src="selectedProject.images[0]" :alt="`${selectedProject.name} screenshot 1`" class="rounded-lg border border-gray-800 w-full max-h-64 object-cover shadow hover:scale-105 transition" />
 																									</button>
 																								</div>
 																								<div v-if="selectedProject.images.length > 1" class="overflow-x-auto pb-1 pr-1" style="scrollbar-width: thin;">
 																										<div class="flex flex-nowrap gap-3 min-w-max">
-																											<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" class="w-24 h-20 flex-shrink-0 focus:outline-none">
-																												<img :src="img" class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
+																							<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name} ${idx + 2}`" class="w-24 h-20 flex-shrink-0 focus:outline-none">
+																								<img :src="img" :alt="`${selectedProject.name} screenshot ${idx + 2}`" class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
 																											</button>
 																										</div>
 																								</div>
 																							</div>
 
 														<!-- Lightbox Modal -->
-														<div v-if="lightboxImage" class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 select-none" @click.self="closeLightbox">
-															<button @click="closeLightbox" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl focus:outline-none z-20 bg-gray-900/80 rounded-full p-1">
+																<div v-if="lightboxImage" class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 select-none" role="dialog" aria-modal="true" :aria-label="selectedProject?.name" @click.self="closeLightbox">
+																	<button @click="closeLightbox" :aria-label="t('common.close')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl focus:outline-none z-20 bg-gray-900/80 rounded-full p-1">
 																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
 															</button>
 															<!-- Navigation arrows -->
-																<button @click="prevImage" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
+																		<button @click="prevImage" :aria-label="t('common.previous')" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
 																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
 															</button>
-																<button @click="nextImage" class="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
+																		<button @click="nextImage" :aria-label="t('common.next')" class="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
 																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
 															</button>
 															<!-- Zoom controls -->
 																<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 bg-gray-900/90 rounded-lg px-4 py-2 z-20 border border-gray-700 shadow">
 																<button @click="zoomOut" class="text-white text-2xl px-2 focus:outline-none">-</button>
-																<button @click="toggleZoom" class="text-white text-lg px-2 focus:outline-none">Zoom</button>
+																		<button @click="toggleZoom" class="text-white text-lg px-2 focus:outline-none">{{ t('projectsPage.zoom') }}</button>
 																<button @click="zoomIn" class="text-white text-2xl px-2 focus:outline-none">+</button>
 															</div>
 															<img
 																:src="lightboxImage"
-																:style="{ transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`, cursor: zoom.value > 1 ? (isDragging ? 'grabbing' : 'grab') : 'auto' }"
+																		:alt="`${selectedProject.name} enlarged screenshot ${lightboxIndex + 1}`"
+																		:style="{ transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`, cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'auto' }"
 																class="max-w-full max-h-[80vh] rounded-xl border border-gray-700 shadow-2xl transition-transform duration-200 z-10 select-none"
 																@mousedown="onImgMouseDown"
 																@mousemove="onImgMouseMove"
@@ -93,9 +94,9 @@
 
 						</div>
 						<div v-if="selectedProject.link && selectedProject.link !== '#'">
-							<a :href="selectedProject.link" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700 text-sm transition">
+							<a :href="selectedProject.link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-4 py-2 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700 text-sm transition">
 								<Icon name="mdi:open-in-new" class="text-base" />
-								<span>Visit Project</span>
+								<span>{{ t('projectsPage.visitProject') }}</span>
 							</a>
 						</div>
 					</div>
@@ -106,10 +107,37 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRuntimeConfig } from '#imports';
 
 const config = useRuntimeConfig();
+const route = useRoute();
+const { t } = useI18n();
+
+const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
+const canonicalURL = computed(() => {
+	if (!siteURL.value) return '';
+	return `${siteURL.value}${route.path}`;
+});
+const ogImageURL = computed(() => {
+	const imagePath = `${config.public.baseURL}linkedin.jpg`;
+	return siteURL.value ? `${siteURL.value}${imagePath.startsWith('/') ? imagePath : `/${imagePath}`}` : imagePath;
+});
+
+useHead({
+	link: () => (canonicalURL.value ? [{ rel: 'canonical', href: canonicalURL.value }] : []),
+});
+
+useSeoMeta({
+	title: () => t('projectsPage.seoTitle'),
+	description: () => t('projectsPage.seoDescription'),
+	ogTitle: () => t('projectsPage.seoTitle'),
+	ogDescription: () => t('projectsPage.seoDescription'),
+	ogImage: () => ogImageURL.value,
+	twitterImage: () => ogImageURL.value,
+	twitterCard: 'summary_large_image',
+});
+
 function withBaseURL(path) {
 	return config.public.baseURL + path.replace(/^\//, '');
 }
@@ -123,6 +151,11 @@ const panY = ref(0);
 const isDragging = ref(false);
 const dragStart = ref({ x: 0, y: 0 });
 const panStart = ref({ x: 0, y: 0 });
+
+function closeProjectModal() {
+	selectedProject.value = null;
+	closeLightbox();
+}
 
 function openProject(item) {
   selectedProject.value = item;
@@ -231,6 +264,41 @@ function onImgTouchMove(e) {
 function onImgTouchEnd() {
   isDragging.value = false;
 }
+
+function onKeydown(e) {
+	if (e.key === 'Escape') {
+		if (lightboxImage.value) {
+			closeLightbox();
+			return;
+		}
+
+		if (selectedProject.value) {
+			closeProjectModal();
+		}
+
+		return;
+	}
+
+	if (!lightboxImage.value) {
+		return;
+	}
+
+	if (e.key === 'ArrowLeft') {
+		prevImage();
+	}
+
+	if (e.key === 'ArrowRight') {
+		nextImage();
+	}
+}
+
+onMounted(() => {
+	window.addEventListener('keydown', onKeydown);
+});
+
+onBeforeUnmount(() => {
+	window.removeEventListener('keydown', onKeydown);
+});
 
 const projectCategories = [
 	{

@@ -1,3 +1,67 @@
 {
-  "welcome": "Vitajte"
+  "welcome": "Vitajte",
+  "common": {
+    "backHome": "Späť domov",
+    "close": "Zavrieť",
+    "previous": "Predchádzajúci",
+    "next": "Ďalší"
+  },
+  "home": {
+    "seoTitle": "Adrian Vančo | Full-Stack Developer a IT špecialista",
+    "seoDescription": "Portfólio Adriana Vanča s projektmi z web developmentu, automatizácie, elektroniky a enterprise IT.",
+    "cvTitle": "CV",
+    "cvDescription": "Pozrite si moje profesionálne skúsenosti, vzdelanie a zručnosti.",
+    "projectsTitle": "Projekty",
+    "projectsDescription": "Prezrite si moje portfólio webových, automatizačných a elektronických projektov."
+  },
+  "projectsPage": {
+    "seoTitle": "Projekty | Adrian Vančo",
+    "seoDescription": "Výber projektov z webových aplikácií, enterprise systémov, automatizácie a elektroniky.",
+    "title": "Projekty",
+    "subtitle": "Výber mojej práce",
+    "showMore": "Zobraziť viac",
+    "visitProject": "Navštíviť projekt",
+    "zoom": "Priblíženie",
+    "openImage": "Otvoriť obrázok"
+  },
+  "cvPage": {
+    "seoTitle": "CV | Adrian Vančo",
+    "seoDescription": "CV Adriana Vanča so vzdelaním, pracovnými skúsenosťami, zručnosťami a certifikátmi.",
+    "role": "Full-Stack Developer a IT špecialista",
+    "location": "Bratislava, Slovensko",
+    "education": "Vzdelanie",
+    "workExperience": "Pracovné skúsenosti",
+    "skills": "Zručnosti",
+    "programming": "Programovanie",
+    "itAdministration": "IT administrácia",
+    "softSkills": "Mäkké zručnosti",
+    "certificates": "Certifikáty",
+    "viewThesis": "Zobraziť prácu",
+    "viewImages": "Zobraziť obrázky",
+    "thesisImages": "Obrázky z práce",
+    "thesisImagesSubtitle": "Snímky obrazovky a diagramy z mojej BP práce",
+    "zoom": "Priblíženie",
+    "openImage": "Otvoriť obrázok",
+    "masterDegree": "Inžinierske štúdium (Inteligentné softvérové systémy)",
+    "bachelorDegree": "Bakalárske štúdium (Informatika)",
+    "secondarySchool": "Stredná odborná škola elektrotechnická (Počítačové systémy)",
+    "githubSchool": "GitHub škola",
+    "bachelorThesisLabel": "Bakalárska práca:",
+    "bachelorThesisDescription": "Vývoj decentralizovaného marketplace pre aplikácie využívajúce IPv4 adresy v sieti IOTA, so smart kontraktmi v Solidity a frontendom v Angulari s integráciou MetaMask.",
+    "jobItSpecialist": "IT špecialista",
+    "jobAppDeveloper": "Aplikačný vývojár",
+    "jobItSpecialistDesc": "Správa Active Directory, serverov, MS365 a sieťovej infraštruktúry pre investičnú spoločnosť.",
+    "jobAppDeveloperDesc": "Vývoj webových aplikácií v Angulari pre energetický sektor. Vývoj mobilnej webovej aplikácie v Xamarin.",
+    "teamwork": "Tímová spolupráca",
+    "communication": "Komunikácia",
+    "problemSolving": "Riešenie problémov",
+    "adaptability": "Adaptabilita",
+    "timeManagement": "Time management",
+    "uiuxDesign": "UI/UX dizajn",
+    "algorithmicThinking": "Algoritmické myslenie",
+    "certIet": "IET akreditácia",
+    "certGoogleAi": "Google AI Essentials",
+    "certCcna": "CCNA 1, 2, IoT",
+    "certElectrical": "Paragraf 21 - Osvedčenie o odbornej spôsobilosti v elektrotechnike"
+  }
 }
