@@ -21,7 +21,6 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.carServiceWebsite.name',
         descriptionKey: 'projectsData.items.carServiceWebsite.description',
         link: '#',
-        featured: true,
         images: [
           '/webs/car-service/desktop/homecookies.png',
           '/webs/car-service/desktop/contact.png',
@@ -94,7 +93,6 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.chatRooms.name',
         descriptionKey: 'projectsData.items.chatRooms.description',
         link: '#',
-        featured: true,
         images: [
           '/chatapp/rooms.png',
           '/chatapp/login.png',
@@ -118,7 +116,6 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.contactPointPwa.name',
         descriptionKey: 'projectsData.items.contactPointPwa.description',
         link: '#',
-        featured: true,
         images: [
           '/proxenta/contactpoint/appicons.png',
           '/proxenta/contactpoint/login.png',
@@ -176,6 +173,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.serverAdministration.name',
         descriptionKey: 'projectsData.items.serverAdministration.description',
         link: '#',
+        featured: true,
         images: ['/proxenta/vmware.png'],
       },
       { nameKey: 'projectsData.items.ms365Administration.name', descriptionKey: 'projectsData.items.ms365Administration.description', link: '#' },
@@ -184,6 +182,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         nameKey: 'projectsData.items.activeDirectoryMigration.name',
         descriptionKey: 'projectsData.items.activeDirectoryMigration.description',
         link: '#',
+        featured: true,
         images: ['/proxenta/ad/info.png'],
       },
       {
@@ -191,6 +190,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
         descriptionKey: 'projectsData.items.fileserverPermissionsMigration.description',
         link: '#',
         images: ['/proxenta/ad/groups.png'],
+        featured: true,
       },
       { nameKey: 'projectsData.items.nasBackups.name', descriptionKey: 'projectsData.items.nasBackups.description', link: '#' },
       { nameKey: 'projectsData.items.domainManagement.name', descriptionKey: 'projectsData.items.domainManagement.description', link: '#' },

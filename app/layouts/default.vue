@@ -10,7 +10,7 @@ const locales = [
 
 <template>
     <div class="flex flex-col min-h-screen">
-        <div class="fixed top-4 right-4 z-40 rounded-full border border-gray-700 bg-gray-950/80 px-2 py-1 shadow-lg backdrop-blur">
+        <div class="no-print fixed top-4 right-4 z-40 rounded-full border border-gray-700 bg-gray-950/80 px-2 py-1 shadow-lg backdrop-blur">
             <div class="flex items-center gap-1">
                 <NuxtLink
                     v-for="item in locales"

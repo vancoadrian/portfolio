@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 via-gray-900 py-24 px-4 flex justify-center items-center">
-		<div class="absolute top-6 left-6 z-20">
+		<div class="absolute top-6 left-6 z-20 no-print">
 			<NuxtLink to="/"
 				class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white transition shadow">
 				<Icon name="mdi:arrow-left" class="text-lg" />
@@ -9,21 +9,29 @@
 			</NuxtLink>
 		</div>
 		<div
-			class="w-full max-w-2xl bg-gradient-to-br from-gray-950/95 to-gray-900/90 rounded-3xl shadow-2xl border border-gray-800 p-0 overflow-hidden">
+			class="relative w-full max-w-2xl bg-gradient-to-br from-gray-950/95 to-gray-900/90 rounded-3xl shadow-2xl border border-gray-800 p-0 overflow-hidden">
+			<button type="button" @click="exportToPdf"
+				:aria-label="t('cvPage.downloadPdf')"
+				:title="t('cvPage.downloadPdf')"
+				class="no-print absolute top-4 right-4 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-blue-800 hover:text-white hover:border-blue-700 transition shadow">
+				<Icon name="mdi:file-pdf-box" class="text-xl" />
+			</button>
 			<!-- Profile Card -->
 			<div
-				class="flex flex-col items-center pt-12 pb-10 px-10 bg-gradient-to-b from-gray-950/80 to-gray-900/60 border-b border-gray-800">
+				class="cv-profile flex flex-col items-center pt-12 pb-10 px-10 bg-gradient-to-b from-gray-950/80 to-gray-900/60 border-b border-gray-800">
 				<div
-					class="w-28 h-28 rounded-full bg-gradient-to-br from-gray-800 to-gray-700 border-4 border-gray-700 flex items-center justify-center mb-4 shadow-lg ring-4 ring-gray-900 overflow-hidden">
+					class="cv-avatar w-28 h-28 rounded-full bg-gradient-to-br from-gray-800 to-gray-700 border-4 border-gray-700 flex items-center justify-center mb-4 shadow-lg ring-4 ring-gray-900 overflow-hidden">
 					<img v-if="profileImage" :src="profileImage" :alt="t('cvPage.role')" class="object-cover w-full h-full" />
 					<Icon v-else name="mdi:account" class="text-6xl text-gray-400" />
 				</div>
-				<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Adrian Vanco</h1>
-				<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('cvPage.role') }}</div>
-				<div class="text-gray-500 text-md">{{ t('cvPage.location') }}</div>
+				<div class="cv-profile-text flex flex-col items-center">
+					<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Adrian Vanco</h1>
+					<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('cvPage.role') }}</div>
+					<div class="text-gray-500 text-md">{{ t('cvPage.location') }}</div>
+				</div>
 			</div>
 			<!-- Main Content -->
-			<div class="px-10 pb-12 pt-8">
+			<div class="cv-content px-10 pb-12 pt-8">
 				<section class="mb-8">
 					<h2
 						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
@@ -45,7 +53,7 @@
 								<a href="https://opac.crzp.sk/?fn=detailBiblioFormChildA3JN7&sid=AA9A59A4FA5B9CCA5E9C4B07A76D&seo=CRZP-detail-kniha"
 									target="_blank" rel="noopener noreferrer" class="text-blue-400 underline ml-1">{{ t('cvPage.viewThesis') }}</a>
 								<button @click="showThesisImages = true"
-									class="ml-3 px-3 py-1 rounded bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white transition text-xs font-medium border border-gray-700">{{ t('cvPage.viewImages') }}</button>
+									class="no-print ml-3 px-3 py-1 rounded bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white transition text-xs font-medium border border-gray-700">{{ t('cvPage.viewImages') }}</button>
 							</div>
 
 							<!-- Thesis Images Modal (projects-style) -->
@@ -271,7 +279,7 @@
 						</ul>
 					</div>
 				</section>
-				<div class="border-t border-gray-800 my-8"></div>
+				<div class="cv-page-break border-t border-gray-800 my-8"></div>
 				<section>
 					<h2
 						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
@@ -296,7 +304,7 @@
 						</li>
 					</ul>
 				</section>
-				<div class="rounded-2xl border border-gray-800 bg-gray-900/50 p-5 mt-8">
+				<div class="no-print rounded-2xl border border-gray-800 bg-gray-900/50 p-5 mt-8">
 					<div class="text-base font-bold text-gray-100 mb-1">{{ t('cvPage.ctaTitle') }}</div>
 					<div class="text-gray-400 text-sm mb-3">{{ t('cvPage.ctaDescription') }}</div>
 					<div class="flex flex-wrap gap-3">
@@ -312,7 +320,7 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 const config = useRuntimeConfig();
 const route = useRoute();
 const { t } = useI18n();
@@ -448,6 +456,11 @@ function onThesisImgTouchEnd() {
 	thesisDragging.value = false;
 }
 
+function exportToPdf() {
+	closeThesisModal();
+	nextTick(() => window.print());
+}
+
 function onKeydown(e) {
 	if (e.key === 'Escape') {
 		if (lightboxThesisIndex.value !== null) {
@@ -519,3 +532,166 @@ const thesisImages = [
 	config.public.baseURL + 'bp/UsecaseW.png',
 ];
 </script>
+
+<style>
+@media print {
+	@page {
+		size: A4;
+		margin: 0;
+	}
+
+	.no-print,
+	.no-print * {
+		display: none !important;
+	}
+
+	html,
+	body {
+		background: #fff !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		font-size: 10.5pt;
+		line-height: 1.35;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	body * {
+		color: #111 !important;
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+
+	a {
+		color: #1d4ed8 !important;
+		text-decoration: underline;
+		word-break: break-word;
+	}
+
+	.min-h-screen {
+		min-height: 0 !important;
+		padding: 0 !important;
+		background: #fff !important;
+		display: block !important;
+	}
+
+	.min-h-screen > div:last-child {
+		max-width: 100% !important;
+		width: 100% !important;
+		padding: 14mm 16mm !important;
+		background: #fff !important;
+		border: none !important;
+		border-radius: 0 !important;
+		overflow: visible !important;
+	}
+
+	/* Profile header — horizontal (avatar left, text right) */
+	.cv-profile {
+		flex-direction: row !important;
+		align-items: center !important;
+		justify-content: flex-start !important;
+		gap: 6mm !important;
+		padding: 0 0 5mm 0 !important;
+		border-bottom: 1px solid #d1d5db !important;
+	}
+	.cv-avatar {
+		width: 22mm !important;
+		height: 22mm !important;
+		margin: 0 !important;
+		flex-shrink: 0 !important;
+		border-width: 1px !important;
+		box-shadow: none !important;
+	}
+	.cv-profile-text {
+		align-items: flex-start !important;
+		text-align: left !important;
+	}
+	.cv-profile-text h1 {
+		font-size: 18pt !important;
+		margin-bottom: 0.5mm !important;
+	}
+	.cv-profile-text > div {
+		margin-bottom: 0 !important;
+	}
+
+	.cv-content {
+		padding: 6mm 0 0 0 !important;
+	}
+
+	.cv-page-break {
+		break-before: page !important;
+		page-break-before: always !important;
+		border: none !important;
+		padding-top: 14mm !important;
+		margin: 0 0 4mm 0 !important;
+	}
+	.cv-page-break::after {
+		content: "";
+		display: block;
+		border-top: 1px solid #d1d5db;
+	}
+
+	/* Section spacing */
+	section {
+		margin-bottom: 5mm !important;
+		break-inside: avoid;
+	}
+	section h2 {
+		font-size: 12pt !important;
+		margin-bottom: 2mm !important;
+		break-after: avoid;
+	}
+	section h3 {
+		font-size: 10.5pt !important;
+		margin-bottom: 1.5mm !important;
+		break-after: avoid;
+	}
+
+	li {
+		break-inside: avoid;
+	}
+
+	ul.space-y-5 > li + li {
+		margin-top: 3mm !important;
+	}
+	ul.space-y-2 > li + li {
+		margin-top: 1.5mm !important;
+	}
+
+	/* Section dividers */
+	.border-t.border-gray-800 {
+		margin: 4mm 0 !important;
+		border-color: #e5e7eb !important;
+	}
+
+	/* Skill pills — compact */
+	ul.flex.flex-wrap {
+		gap: 1.5mm !important;
+	}
+	ul.flex.flex-wrap > li {
+		padding: 0.5mm 2mm !important;
+		font-size: 9pt !important;
+		border: 1px solid #d1d5db !important;
+	}
+
+	.bg-gray-800,
+	.bg-gray-900\/50,
+	[class*="bg-gray-"],
+	[class*="bg-gradient-"] {
+		background: #fff !important;
+	}
+
+	[class*="border-"] {
+		border-color: #d1d5db !important;
+	}
+
+	.rounded-full.bg-gray-800 {
+		border: 1px solid #d1d5db !important;
+	}
+
+	p, li, div {
+		orphans: 3;
+		widows: 3;
+	}
+}
+</style>
