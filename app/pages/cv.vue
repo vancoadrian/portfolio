@@ -25,7 +25,7 @@
 					<Icon v-else name="mdi:account" class="text-6xl text-gray-400" />
 				</div>
 				<div class="cv-profile-text flex flex-col items-center">
-					<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Adrian Vanco</h1>
+					<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Adrián Vančo</h1>
 					<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('cvPage.role') }}</div>
 					<div class="text-gray-500 text-md">{{ t('cvPage.location') }}</div>
 				</div>
