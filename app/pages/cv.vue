@@ -28,6 +28,7 @@
 					<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Adrián Vančo</h1>
 					<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('cvPage.role') }}</div>
 					<div class="text-gray-500 text-md">{{ t('cvPage.location') }}</div>
+					<a v-if="portfolioURL" :href="portfolioURL" class="only-print text-sm mt-1 underline">{{ portfolioURL }}</a>
 				</div>
 			</div>
 			<!-- Main Content -->
@@ -326,6 +327,11 @@ const route = useRoute();
 const { t } = useI18n();
 
 const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
+const portfolioURL = computed(() => {
+	if (!siteURL.value) return '';
+	const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
+	return `${siteURL.value}${basePath || '/'}`;
+});
 const canonicalURL = computed(() => {
 	if (!siteURL.value) return '';
 	const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
@@ -534,7 +540,15 @@ const thesisImages = [
 </script>
 
 <style>
+.only-print {
+	display: none;
+}
+
 @media print {
+	.only-print {
+		display: block !important;
+	}
+
 	@page {
 		size: A4;
 		margin: 0;
