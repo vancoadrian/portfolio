@@ -323,47 +323,11 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 const config = useRuntimeConfig();
-const route = useRoute();
 const { t } = useI18n();
 
-const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
-const portfolioURL = computed(() => {
-	if (!siteURL.value) return '';
-	const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
-	return `${siteURL.value}${basePath || '/'}`;
-});
-const canonicalURL = computed(() => {
-	if (!siteURL.value) return '';
-	const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
-	return `${siteURL.value}${basePath}${route.path}`;
-});
-const ogImageURL = computed(() => {
-	const imagePath = `${config.public.baseURL}linkedin.jpg`;
-	return siteURL.value ? `${siteURL.value}${imagePath.startsWith('/') ? imagePath : `/${imagePath}`}` : imagePath;
-});
-
-useHead({
-	link: () => {
-		const links = [
-			{ rel: 'icon', type: 'image/png', href: `${config.public.baseURL}icon.png` },
-			{ rel: 'icon', type: 'image/svg+xml', href: `${config.public.baseURL}portfolio_favicon_simple.svg` }
-		];
-		if (canonicalURL.value) links.push({ rel: 'canonical', href: canonicalURL.value });
-		return links;
-	},
-});
-
-useSeoMeta({
+const { portfolioURL } = usePortfolioSeo({
 	title: () => t('cvPage.seoTitle'),
 	description: () => t('cvPage.seoDescription'),
-	ogTitle: () => t('cvPage.seoTitle'),
-	ogDescription: () => t('cvPage.seoDescription'),
-	ogUrl: () => canonicalURL.value,
-	ogImage: () => ogImageURL.value,
-	twitterTitle: () => t('cvPage.seoTitle'),
-	twitterDescription: () => t('cvPage.seoDescription'),
-	twitterImage: () => ogImageURL.value,
-	twitterCard: 'summary_large_image',
 });
 
 const profileImage = ref(config.public.baseURL + 'linkedin.jpg');

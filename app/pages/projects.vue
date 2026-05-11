@@ -181,42 +181,11 @@ import { useRuntimeConfig } from '#imports';
 import { projectCategoriesData } from '~/data/projects';
 
 const config = useRuntimeConfig();
-const route = useRoute();
 const { t } = useI18n();
 
-const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
-const canonicalURL = computed(() => {
-	if (!siteURL.value) return '';
-	const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
-	return `${siteURL.value}${basePath}${route.path}`;
-});
-const ogImageURL = computed(() => {
-	const imagePath = `${config.public.baseURL}linkedin.jpg`;
-	return siteURL.value ? `${siteURL.value}${imagePath.startsWith('/') ? imagePath : `/${imagePath}`}` : imagePath;
-});
-
-useHead({
-	link: () => {
-		const links = [
-			{ rel: 'icon', type: 'image/png', href: `${config.public.baseURL}icon.png` },
-			{ rel: 'icon', type: 'image/svg+xml', href: `${config.public.baseURL}portfolio_favicon_simple.svg` }
-		];
-		if (canonicalURL.value) links.push({ rel: 'canonical', href: canonicalURL.value });
-		return links;
-	},
-});
-
-useSeoMeta({
+usePortfolioSeo({
 	title: () => t('projectsPage.seoTitle'),
 	description: () => t('projectsPage.seoDescription'),
-	ogTitle: () => t('projectsPage.seoTitle'),
-	ogDescription: () => t('projectsPage.seoDescription'),
-	ogUrl: () => canonicalURL.value,
-	ogImage: () => ogImageURL.value,
-	twitterTitle: () => t('projectsPage.seoTitle'),
-	twitterDescription: () => t('projectsPage.seoDescription'),
-	twitterImage: () => ogImageURL.value,
-	twitterCard: 'summary_large_image',
 });
 
 function withBaseURL(path) {

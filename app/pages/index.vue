@@ -27,43 +27,11 @@
 <script setup>
 import { computed } from 'vue';
 
-const config = useRuntimeConfig();
-const route = useRoute();
 const { t } = useI18n();
 
-const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
-const canonicalURL = computed(() => {
-  if (!siteURL.value) return '';
-  const basePath = (config.public.baseURL || '/').replace(/\/$/, '');
-  return `${siteURL.value}${basePath}${route.path}`;
-});
-const ogImageURL = computed(() => {
-  const imagePath = `${config.public.baseURL}linkedin.jpg`;
-  return siteURL.value ? `${siteURL.value}${imagePath.startsWith('/') ? imagePath : `/${imagePath}`}` : imagePath;
-});
-
-useHead({
-  link: () => {
-    const links = [
-      { rel: 'icon', type: 'image/png', href: `${config.public.baseURL}icon.png` },
-      { rel: 'icon', type: 'image/svg+xml', href: `${config.public.baseURL}portfolio_favicon_simple.svg` }
-    ];
-    if (canonicalURL.value) links.push({ rel: 'canonical', href: canonicalURL.value });
-    return links;
-  },
-});
-
-useSeoMeta({
+usePortfolioSeo({
   title: () => t('home.seoTitle'),
   description: () => t('home.seoDescription'),
-  ogTitle: () => t('home.seoTitle'),
-  ogDescription: () => t('home.seoDescription'),
-  ogUrl: () => canonicalURL.value,
-  ogImage: () => ogImageURL.value,
-  twitterTitle: () => t('home.seoTitle'),
-  twitterDescription: () => t('home.seoDescription'),
-  twitterImage: () => ogImageURL.value,
-  twitterCard: 'summary_large_image',
 });
 
 const categories = computed(() => [
