@@ -17,6 +17,21 @@ export default defineNuxtConfig({
           rel: 'icon',
           type: 'image/svg+xml',
           href: `${appBaseURL}portfolio_favicon_simple.svg`
+        },
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: `${appBaseURL}apple-touch-icon.png`
+        },
+        {
+          rel: 'manifest',
+          href: `${appBaseURL}manifest.webmanifest`
+        }
+      ],
+      meta: [
+        {
+          name: 'theme-color',
+          content: '#111729'
         }
       ]
     }

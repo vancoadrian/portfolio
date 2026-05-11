@@ -1,75 +1,90 @@
-# Nuxt Minimal Starter
+# Adrian Vanco Portfolio
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Personal portfolio built with Nuxt, Vue, Tailwind CSS, Nuxt UI, and i18n support for Slovak and English content.
+
+The site presents my CV and selected projects across web development, enterprise systems, automation, electronics, and IT administration.
+
+## Live Site
+
+https://vancoadrian.github.io/portfolio/
+
+## Tech Stack
+
+- Nuxt 4
+- Vue 3
+- TypeScript
+- Tailwind CSS
+- Nuxt UI
+- Nuxt Image
+- Nuxt Icon
+- Nuxt i18n
+
+## Features
+
+- Bilingual SK/EN content
+- CV page with education, experience, skills, certificates, and links
+- Projects page with filtering, search, featured projects, and image previews
+- SEO metadata and canonical URLs
+- PWA manifest and install icons
+- GitHub Pages deployment workflow
+
+## Project Structure
+
+```text
+app/
+  assets/css/       Global styles
+  data/             Project data
+  layouts/          Shared layout and language switcher
+  pages/            Home, CV, and projects pages
+i18n/locales/       SK and EN translations
+public/             Images, favicon, PWA icons, and static assets
+```
 
 ## Setup
 
-Make sure to install dependencies:
+Install dependencies:
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Start the development server:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+Build for production:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Generate static output:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+npm run generate
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+The repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml`.
+
+Deployment runs on pushes to the `deploy_githubpages` branch and publishes the generated site to GitHub Pages.
+
+## PWA Assets
+
+The PWA icon set is generated from `public/icon.png`:
+
+- `public/apple-touch-icon.png`
+- `public/pwa-192x192.png`
+- `public/pwa-512x512.png`
+- `public/maskable-icon-192x192.png`
+- `public/maskable-icon-512x512.png`
+- `public/manifest.webmanifest`
