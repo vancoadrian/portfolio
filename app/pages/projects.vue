@@ -1,178 +1,197 @@
 <template>
-	<div class="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 via-gray-900 py-24 px-4 flex justify-center items-center">
-		<div class="absolute top-6 left-6 z-20">
-			<NuxtLink to="/" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white transition shadow">
+	<main class="relative min-h-screen overflow-hidden bg-gray-950 text-gray-100">
+		<div class="absolute inset-0 bg-[linear-gradient(180deg,#030712_0%,#07111f_52%,#0f172a_100%)]"></div>
+		<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.1)_0%,rgba(3,7,18,0)_42%,rgba(16,185,129,0.08)_100%)]"></div>
+		<div class="absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
+
+		<div class="relative mx-auto w-full max-w-6xl px-4 pt-14 pb-20 sm:px-6 sm:pt-20 lg:px-10">
+			<NuxtLink
+				to="/"
+				class="mb-10 inline-flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+			>
 				<Icon name="mdi:arrow-left" class="text-lg" />
 				<span>{{ t('common.backHome') }}</span>
 			</NuxtLink>
-		</div>
-		<div class="w-full max-w-3xl bg-gradient-to-br from-gray-950/95 to-gray-900/90 rounded-3xl shadow-2xl border border-gray-800 p-0 overflow-hidden">
-			<div class="flex flex-col items-center pt-10 pb-8 px-8 bg-gradient-to-b from-gray-950/80 to-gray-900/60 border-b border-gray-800">
-				<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">{{ t('projectsPage.title') }}</h1>
-				<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('projectsPage.subtitle') }}</div>
-			</div>
-			<div class="px-8 pb-12 pt-8">
-				<div v-if="featuredProjects.length" class="mb-10">
-					<h2 class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-blue-500 pl-3 pb-2 mb-2 relative">
-						<Icon name="mdi:star-circle" class="text-xl text-blue-400" />{{ t('projectsPage.featuredTitle') }}
-						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
-					</h2>
-					<div class="text-gray-400 text-sm mb-4">{{ t('projectsPage.featuredSubtitle') }}</div>
-					<div class="grid gap-4 md:grid-cols-3">
-						<button
-							v-for="item in featuredProjects"
-							:key="`featured-${item.name}`"
-							@click="openProject(item)"
-							class="relative text-left rounded-xl border border-blue-800/70 bg-blue-950/30 p-4 shadow hover:shadow-lg hover:border-blue-500 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
-						>
-							<span class="absolute top-3 right-3 rounded-full border border-blue-500/60 bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-blue-300">{{ t('projectsPage.featuredBadge') }}</span>
-							<div class="mb-2 pr-16 font-semibold text-gray-100 text-base leading-tight">{{ item.name }}</div>
-							<div class="text-gray-400 text-sm line-clamp-4">{{ item.description }}</div>
-						</button>
+
+			<header class="mb-10 max-w-3xl">
+				<div class="mb-4 inline-flex items-center gap-2 border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm font-semibold text-cyan-200">
+					<Icon name="mdi:folder-open" class="text-base" />
+					<span>{{ t('projectsPage.subtitle') }}</span>
+				</div>
+				<h1 class="text-5xl font-bold leading-none text-white sm:text-6xl">{{ t('projectsPage.title') }}</h1>
+				<p class="mt-5 max-w-2xl text-lg leading-8 text-gray-300">{{ t('projectsPage.seoDescription') }}</p>
+			</header>
+
+			<section v-if="featuredProjects.length" class="mb-10">
+				<div class="mb-4 flex items-end justify-between gap-4">
+					<div>
+						<h2 class="flex items-center gap-2 text-xl font-bold uppercase text-gray-100">
+							<Icon name="mdi:star-circle" class="text-2xl text-amber-300" />
+							{{ t('projectsPage.featuredTitle') }}
+						</h2>
+						<p class="mt-1 text-sm text-gray-400">{{ t('projectsPage.featuredSubtitle') }}</p>
 					</div>
 				</div>
-
-				<div class="mb-8 grid gap-3 sm:grid-cols-2">
-					<label class="block">
-						<span class="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-400">{{ t('projectsPage.searchLabel') }}</span>
-						<input
-							v-model="searchQuery"
-							type="search"
-							:placeholder="t('projectsPage.searchPlaceholder')"
-							class="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-						/>
-					</label>
-					<label class="block">
-						<span class="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-400">{{ t('projectsPage.filterLabel') }}</span>
-						<select
-							v-model="activeCategory"
-							class="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-						>
-							<option value="all">{{ t('projectsPage.allCategories') }}</option>
-							<option v-for="cat in localizedProjectCategories" :key="cat.key" :value="cat.key">{{ cat.category }}</option>
-						</select>
-					</label>
-				</div>
-
-				<div class="mb-6 flex flex-wrap items-center justify-between gap-3">
-					<div class="text-sm text-gray-400">{{ t('projectsPage.resultsCount', { count: filteredProjectsCount }) }}</div>
+				<div class="grid gap-4 md:grid-cols-3">
 					<button
-						v-if="hasActiveFilters"
-						@click="clearFilters"
-						class="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-900/70 px-3 py-1.5 text-xs font-semibold text-gray-200 hover:bg-gray-800 transition"
+						v-for="item in featuredProjects"
+						:key="`featured-${item.name}`"
+						@click="openProject(item)"
+						class="relative min-h-52 rounded-lg border border-cyan-400/30 bg-gray-950/82 p-5 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-300"
 					>
-						<Icon name="mdi:filter-remove" class="text-sm" />
-						<span>{{ t('projectsPage.clearFilters') }}</span>
+						<span class="absolute top-5 left-5 inline-flex border border-amber-300/40 bg-amber-300/10 px-2 py-1 text-[10px] font-bold uppercase text-amber-200">{{ t('projectsPage.featuredBadge') }}</span>
+						<div class="absolute top-16 right-5 left-5">
+							<div class="mb-2 text-lg font-bold leading-tight text-gray-100">{{ item.name }}</div>
+							<div class="line-clamp-3 text-sm leading-6 text-gray-400">{{ item.description }}</div>
+						</div>
 					</button>
 				</div>
+			</section>
 
-				<div v-if="!filteredProjectCategories.length" class="mb-10 rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-6 text-center text-gray-400">
-					{{ t('projectsPage.noResults') }}
-				</div>
+			<section class="mb-8 grid gap-3 rounded-lg border border-gray-800 bg-gray-950/82 p-4 shadow-xl shadow-black/20 sm:grid-cols-2">
+				<label class="block">
+					<span class="mb-1 block text-xs font-bold uppercase text-gray-400">{{ t('projectsPage.searchLabel') }}</span>
+					<input
+						v-model="searchQuery"
+						type="search"
+						:placeholder="t('projectsPage.searchPlaceholder')"
+						class="w-full rounded-lg border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+					/>
+				</label>
+				<label class="block">
+					<span class="mb-1 block text-xs font-bold uppercase text-gray-400">{{ t('projectsPage.filterLabel') }}</span>
+					<select
+						v-model="activeCategory"
+						class="w-full rounded-lg border border-gray-700 bg-gray-900/80 px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+					>
+						<option value="all">{{ t('projectsPage.allCategories') }}</option>
+						<option v-for="cat in localizedProjectCategories" :key="cat.key" :value="cat.key">{{ cat.category }}</option>
+					</select>
+				</label>
+			</section>
 
-				<div v-for="cat in filteredProjectCategories" :key="cat.key" class="mb-10">
-					<h2 class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
-						<Icon :name="cat.icon" class="text-xl" />{{ cat.category }}
-						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
-					</h2>
-					<ul class="space-y-4">
-						<li v-for="item in cat.items" :key="item.name">
-							<button @click="openProject(item)" class="w-full text-left bg-gray-900/80 border border-gray-800 rounded-xl p-5 flex flex-col md:flex-row md:items-center gap-2 shadow hover:shadow-lg transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500">
-								<div class="flex-1">
-									<div class="font-semibold text-gray-100 text-base">{{ item.name }}</div>
-									<div class="text-gray-400 text-sm mb-1">{{ item.description }}</div>
-								</div>
-								<div v-if="item.images && item.images.length" class="flex items-center gap-1 text-blue-400 text-sm">
-									<Icon name="mdi:eye" class="text-base" />
-									<span>{{ t('projectsPage.showMore') }}</span>
-								</div>
+			<div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+				<div class="text-sm font-semibold text-gray-400">{{ t('projectsPage.resultsCount', { count: filteredProjectsCount }) }}</div>
+				<button
+					v-if="hasActiveFilters"
+					@click="clearFilters"
+					class="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-900/70 px-3 py-1.5 text-xs font-bold text-gray-200 transition hover:border-emerald-300 hover:text-emerald-200"
+				>
+					<Icon name="mdi:filter-remove" class="text-sm" />
+					<span>{{ t('projectsPage.clearFilters') }}</span>
+				</button>
+			</div>
+
+			<div v-if="!filteredProjectCategories.length" class="mb-10 rounded-lg border border-gray-800 bg-gray-900/60 px-4 py-6 text-center text-gray-400">
+				{{ t('projectsPage.noResults') }}
+			</div>
+
+			<section v-for="cat in filteredProjectCategories" :key="cat.key" class="mb-10">
+				<h2 class="mb-4 flex items-center gap-2 border-l-4 border-cyan-400 pl-3 text-lg font-bold uppercase text-gray-100">
+					<Icon :name="cat.icon" class="text-xl text-cyan-300" />
+					{{ cat.category }}
+				</h2>
+				<ul class="grid gap-3 md:grid-cols-2">
+					<li v-for="item in cat.items" :key="item.name">
+						<button
+							@click="openProject(item)"
+							class="flex h-full w-full flex-col gap-3 rounded-lg border border-gray-800 bg-gray-950/82 p-5 text-left shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300/70 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+						>
+							<div class="flex-1">
+								<div class="text-base font-bold text-gray-100">{{ item.name }}</div>
+								<div class="mt-1 text-sm leading-6 text-gray-400">{{ item.description }}</div>
+							</div>
+							<div v-if="item.images && item.images.length" class="inline-flex items-center gap-1 text-sm font-bold text-cyan-300">
+								<Icon name="mdi:eye" class="text-base" />
+								<span>{{ t('projectsPage.showMore') }}</span>
+							</div>
+						</button>
+					</li>
+				</ul>
+			</section>
+
+			<section class="rounded-lg border border-gray-800 bg-gray-950/82 p-5 shadow-xl shadow-black/20">
+				<div class="mb-1 text-base font-bold text-gray-100">{{ t('projectsPage.ctaTitle') }}</div>
+				<div class="mb-3 text-sm text-gray-400">{{ t('projectsPage.ctaDescription') }}</div>
+				<a
+					href="https://www.linkedin.com/in/adrián-vančo-0b4835176"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-400/20 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+				>
+					<Icon name="mdi:linkedin" class="text-base" />
+					<span>{{ t('projectsPage.ctaLinkedIn') }}</span>
+				</a>
+			</section>
+
+			<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" @click.self="closeProjectModal">
+				<div class="relative w-full max-w-lg rounded-lg border border-gray-800 bg-gray-950 p-6 shadow-2xl animate-fade-in sm:p-8" tabindex="-1">
+					<button @click="closeProjectModal" :aria-label="t('common.close')" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-white focus:outline-none">
+						<Icon name="mdi:close" />
+					</button>
+
+					<div class="mb-4 pr-8">
+						<div id="project-modal-title" class="mb-1 text-2xl font-bold text-gray-100">{{ selectedProject.name }}</div>
+						<div class="mb-4 text-gray-400">{{ selectedProject.description }}</div>
+						<div v-if="selectedProject.images && selectedProject.images.length" class="pb-2">
+							<button v-if="selectedProject.images[0]" @click="openLightbox(selectedProject.images[0])" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name}`" class="mb-3 w-full focus:outline-none">
+								<img :src="selectedProject.images[0]" :alt="`${selectedProject.name} screenshot 1`" class="max-h-64 w-full rounded-lg border border-gray-800 object-cover shadow transition hover:scale-[1.01]" />
 							</button>
-						</li>
-					</ul>
-				</div>
+							<div v-if="selectedProject.images.length > 1" class="overflow-x-auto pb-1 pr-1" style="scrollbar-width: thin;">
+								<div class="flex min-w-max flex-nowrap gap-3">
+									<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name} ${idx + 2}`" class="h-20 w-24 flex-shrink-0 focus:outline-none">
+										<img :src="img" :alt="`${selectedProject.name} screenshot ${idx + 2}`" class="h-full w-full rounded-lg border border-gray-800 object-cover shadow transition hover:scale-105" />
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 
-				<div class="rounded-2xl border border-gray-800 bg-gray-900/50 p-5">
-					<div class="text-base font-bold text-gray-100 mb-1">{{ t('projectsPage.ctaTitle') }}</div>
-					<div class="text-gray-400 text-sm mb-3">{{ t('projectsPage.ctaDescription') }}</div>
-					<div class="flex flex-wrap gap-3">
-						<a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-blue-700 bg-blue-900/40 px-4 py-2 text-sm font-semibold text-blue-100 hover:bg-blue-800/60 hover:text-white transition">
-							<Icon name="mdi:linkedin" class="text-base" />
-							<span>{{ t('projectsPage.ctaLinkedIn') }}</span>
+					<div v-if="selectedProject.link && selectedProject.link !== '#'">
+						<a :href="selectedProject.link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-gray-700 hover:text-white">
+							<Icon name="mdi:open-in-new" class="text-base" />
+							<span>{{ t('projectsPage.visitProject') }}</span>
 						</a>
 					</div>
 				</div>
+			</div>
 
-				<!-- Modal -->
-				<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" @click.self="closeProjectModal">
-					<div class="bg-gray-950 rounded-2xl shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in" tabindex="-1">
-						<button @click="closeProjectModal" :aria-label="t('common.close')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
-							<Icon name="mdi:close" />
-						</button>
-
-								<div class="mb-4">
-									<div id="project-modal-title" class="text-2xl font-bold text-gray-100 mb-1">{{ selectedProject.name }}</div>
-									<div class="text-gray-400 mb-4">{{ selectedProject.description }}</div>
-																							<div v-if="selectedProject.images && selectedProject.images.length" class="pb-2">
-																								<div>
-																					<button v-if="selectedProject.images[0]" @click="openLightbox(selectedProject.images[0])" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name}`" class="mb-3 w-full focus:outline-none">
-																						<img :src="selectedProject.images[0]" :alt="`${selectedProject.name} screenshot 1`" class="rounded-lg border border-gray-800 w-full max-h-64 object-cover shadow hover:scale-105 transition" />
-																									</button>
-																								</div>
-																								<div v-if="selectedProject.images.length > 1" class="overflow-x-auto pb-1 pr-1" style="scrollbar-width: thin;">
-																										<div class="flex flex-nowrap gap-3 min-w-max">
-																							<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name} ${idx + 2}`" class="w-24 h-20 flex-shrink-0 focus:outline-none">
-																								<img :src="img" :alt="`${selectedProject.name} screenshot ${idx + 2}`" class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
-																											</button>
-																										</div>
-																								</div>
-																							</div>
-
-														<!-- Lightbox Modal -->
-																<div v-if="lightboxImage" class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 select-none" role="dialog" aria-modal="true" :aria-label="selectedProject?.name" @click.self="closeLightbox">
-																	<button @click="closeLightbox" :aria-label="t('common.close')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl focus:outline-none z-20 bg-gray-900/80 rounded-full p-1">
-																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-															</button>
-															<!-- Navigation arrows -->
-																		<button @click="prevImage" :aria-label="t('common.previous')" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
-																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-															</button>
-																		<button @click="nextImage" :aria-label="t('common.next')" class="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
-																<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-															</button>
-															<!-- Zoom controls -->
-																<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 bg-gray-900/90 rounded-lg px-4 py-2 z-20 border border-gray-700 shadow">
-																<button @click="zoomOut" class="text-white text-2xl px-2 focus:outline-none">-</button>
-																		<button @click="toggleZoom" class="text-white text-lg px-2 focus:outline-none">{{ t('projectsPage.zoom') }}</button>
-																<button @click="zoomIn" class="text-white text-2xl px-2 focus:outline-none">+</button>
-															</div>
-															<img
-																:src="lightboxImage"
-																		:alt="`${selectedProject.name} enlarged screenshot ${lightboxIndex + 1}`"
-																		:style="{ transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`, cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'auto' }"
-																class="max-w-full max-h-[80vh] rounded-xl border border-gray-700 shadow-2xl transition-transform duration-200 z-10 select-none"
-																@mousedown="onImgMouseDown"
-																@mousemove="onImgMouseMove"
-																@mouseup="onImgMouseUp"
-																@mouseleave="onImgMouseLeave"
-																@touchstart="onImgTouchStart"
-																@touchmove="onImgTouchMove"
-																@touchend="onImgTouchEnd"
-																draggable="false"
-															/>
-														</div>
-
-						</div>
-						<div v-if="selectedProject.link && selectedProject.link !== '#'">
-							<a :href="selectedProject.link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-4 py-2 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700 text-sm transition">
-								<Icon name="mdi:open-in-new" class="text-base" />
-								<span>{{ t('projectsPage.visitProject') }}</span>
-							</a>
-						</div>
-					</div>
+			<div v-if="lightboxImage" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 px-4 select-none" role="dialog" aria-modal="true" :aria-label="selectedProject?.name" @click.self="closeLightbox">
+				<button @click="closeLightbox" :aria-label="t('common.close')" class="absolute top-4 right-4 z-[70] inline-flex h-11 w-11 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-3xl text-gray-300 shadow-lg hover:border-cyan-300 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300">
+					<Icon name="mdi:close" />
+				</button>
+				<button @click="prevImage" :aria-label="t('common.previous')" class="absolute left-4 top-1/2 z-[70] inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-cyan-100 shadow-lg shadow-black/30 hover:border-cyan-300 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-300">
+					<svg aria-hidden="true" class="h-7 w-7" viewBox="0 0 24 24" fill="none">
+						<path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</button>
+				<button @click="nextImage" :aria-label="t('common.next')" class="absolute right-4 top-1/2 z-[70] inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-cyan-100 shadow-lg shadow-black/30 hover:border-cyan-300 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-300">
+					<svg aria-hidden="true" class="h-7 w-7" viewBox="0 0 24 24" fill="none">
+						<path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</button>
+				<div class="absolute bottom-8 left-1/2 z-[70] flex -translate-x-1/2 gap-3 rounded-lg border border-gray-700 bg-gray-900/90 px-4 py-2 shadow">
+					<button @click="zoomOut" class="px-2 text-2xl text-white focus:outline-none">-</button>
+					<button @click="toggleZoom" class="px-2 text-lg text-white focus:outline-none">{{ t('projectsPage.zoom') }}</button>
+					<button @click="zoomIn" class="px-2 text-2xl text-white focus:outline-none">+</button>
 				</div>
+				<img
+					:src="lightboxImage"
+					:alt="`${selectedProject.name} enlarged screenshot ${lightboxIndex + 1}`"
+					:style="{ transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`, cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'auto' }"
+					class="z-10 max-h-[80vh] max-w-full rounded-lg border border-gray-700 shadow-2xl transition-transform duration-200 select-none"
+					@mousedown="onImgMouseDown"
+					@mousemove="onImgMouseMove"
+					@mouseup="onImgMouseUp"
+					@mouseleave="onImgMouseLeave"
+					@touchstart="onImgTouchStart"
+					@touchmove="onImgTouchMove"
+					@touchend="onImgTouchEnd"
+					draggable="false"
+				/>
 			</div>
 		</div>
-	</div>
+	</main>
 </template>
 
 <script setup>

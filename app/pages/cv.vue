@@ -1,24 +1,26 @@
 <template>
-	<div
-		class="min-h-screen bg-gradient-to-br from-gray-950 to-gray-900 via-gray-900 py-24 px-4 flex justify-center items-center">
+	<main class="cv-shell relative min-h-screen overflow-hidden bg-gray-950 px-4 pt-14 pb-20 text-gray-100 sm:px-6 sm:pt-20 lg:px-10">
+		<div class="no-print absolute inset-0 bg-[linear-gradient(180deg,#030712_0%,#07111f_52%,#0f172a_100%)]"></div>
+		<div class="no-print absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.1)_0%,rgba(3,7,18,0)_42%,rgba(16,185,129,0.08)_100%)]"></div>
+		<div class="no-print absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
 		<div class="absolute top-6 left-6 z-20 no-print">
 			<NuxtLink to="/"
-				class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white transition shadow">
+				class="inline-flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 				<Icon name="mdi:arrow-left" class="text-lg" />
 				<span>{{ t('common.backHome') }}</span>
 			</NuxtLink>
 		</div>
 		<div
-			class="relative w-full max-w-2xl bg-gradient-to-br from-gray-950/95 to-gray-900/90 rounded-3xl shadow-2xl border border-gray-800 p-0 overflow-hidden">
+			class="cv-document relative mx-auto w-full max-w-4xl overflow-hidden rounded-lg border border-gray-800 bg-gray-950/90 p-0 shadow-2xl shadow-black/30">
 			<button type="button" @click="exportToPdf"
 				:aria-label="t('cvPage.downloadPdf')"
 				:title="t('cvPage.downloadPdf')"
-				class="no-print absolute top-4 right-4 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:bg-blue-800 hover:text-white hover:border-blue-700 transition shadow">
+				class="no-print absolute top-4 right-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-700 bg-gray-900/80 text-gray-300 shadow transition hover:border-cyan-300 hover:bg-cyan-400/10 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 				<Icon name="mdi:file-pdf-box" class="text-xl" />
 			</button>
 			<!-- Profile Card -->
 			<div
-				class="cv-profile flex flex-col items-center pt-12 pb-10 px-10 bg-gradient-to-b from-gray-950/80 to-gray-900/60 border-b border-gray-800">
+				class="cv-profile flex flex-col items-center border-b border-gray-800 bg-gray-950 px-6 pt-12 pb-10 sm:px-10">
 				<div
 					class="cv-avatar w-28 h-28 rounded-full bg-gradient-to-br from-gray-800 to-gray-700 border-4 border-gray-700 flex items-center justify-center mb-4 shadow-lg ring-4 ring-gray-900 overflow-hidden">
 					<img v-if="profileImage" :src="profileImage" :alt="t('cvPage.role')" class="object-cover w-full h-full" />
@@ -26,17 +28,17 @@
 				</div>
 				<div class="cv-profile-text flex flex-col items-center">
 					<h1 class="text-3xl font-extrabold text-gray-100 mb-1 tracking-tight">Adrián Vančo</h1>
-					<div class="text-gray-400 text-lg mb-2 font-medium">{{ t('cvPage.role') }}</div>
-					<div class="text-gray-500 text-md">{{ t('cvPage.location') }}</div>
+					<div class="text-lg font-semibold text-cyan-200 mb-2">{{ t('cvPage.role') }}</div>
+					<div class="text-md text-gray-400">{{ t('cvPage.location') }}</div>
 					<a v-if="portfolioURL" :href="portfolioURL" class="only-print text-sm mt-1 underline">{{ portfolioURL }}</a>
 				</div>
 			</div>
 			<!-- Main Content -->
-			<div class="cv-content px-10 pb-12 pt-8">
+			<div class="cv-content px-6 pb-12 pt-8 sm:px-10">
 				<section class="mb-8">
 					<h2
-						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
-						<Icon name="mdi:school" class="text-xl" />{{ t('cvPage.education') }}
+						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-cyan-400 pl-3 pb-2 mb-4 relative">
+						<Icon name="mdi:school" class="text-xl text-cyan-300" />{{ t('cvPage.education') }}
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
 					<ul class="space-y-2">
@@ -48,20 +50,20 @@
 							<span class="font-semibold text-gray-100">{{ t('cvPage.bachelorDegree') }}</span>, FIIT STU
 							<span class="text-gray-400">(2019-2024)</span>
 							<a href="https://github.com/vancoadrian/school" target="_blank" rel="noopener noreferrer"
-								class="text-blue-400 underline ml-2">{{ t('cvPage.githubSchool') }}</a>
+								class="text-cyan-300 underline ml-2">{{ t('cvPage.githubSchool') }}</a>
 							<div class="text-gray-400 text-sm mt-1 pl-2">
 								{{ t('cvPage.bachelorThesisLabel') }} {{ t('cvPage.bachelorThesisDescription') }}
 								<a href="https://opac.crzp.sk/?fn=detailBiblioFormChildA3JN7&sid=AA9A59A4FA5B9CCA5E9C4B07A76D&seo=CRZP-detail-kniha"
-									target="_blank" rel="noopener noreferrer" class="text-blue-400 underline ml-1">{{ t('cvPage.viewThesis') }}</a>
+									target="_blank" rel="noopener noreferrer" class="text-cyan-300 underline ml-1">{{ t('cvPage.viewThesis') }}</a>
 								<button @click="showThesisImages = true"
-									class="no-print ml-3 px-3 py-1 rounded bg-gray-800 text-gray-200 hover:bg-blue-700 hover:text-white transition text-xs font-medium border border-gray-700">{{ t('cvPage.viewImages') }}</button>
+									class="no-print ml-3 rounded-lg border border-gray-700 bg-gray-800 px-3 py-1 text-xs font-medium text-gray-200 transition hover:border-cyan-300 hover:text-cyan-100">{{ t('cvPage.viewImages') }}</button>
 							</div>
 
 							<!-- Thesis Images Modal (projects-style) -->
 							<div v-if="showThesisImages"
 								class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" role="dialog" aria-modal="true" aria-labelledby="thesis-modal-title" @click.self="closeThesisModal">
 								<div
-									class="bg-gray-950 rounded-2xl shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in" tabindex="-1">
+									class="bg-gray-950 rounded-lg shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in" tabindex="-1">
 									<button @click="closeThesisModal"
 										:aria-label="t('common.close')"
 										class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
@@ -91,10 +93,10 @@
 									</div>
 									<!-- Lightbox Modal -->
 									<div v-if="lightboxThesisIndex !== null"
-										class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 select-none" role="dialog" aria-modal="true" :aria-label="t('cvPage.thesisImages')" @click.self="closeThesisLightbox">
+										class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 px-4 select-none" role="dialog" aria-modal="true" :aria-label="t('cvPage.thesisImages')" @click.self="closeThesisLightbox">
 										<button @click="closeThesisLightbox"
 											:aria-label="t('common.close')"
-											class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl focus:outline-none z-20 bg-gray-900/80 rounded-full p-1">
+											class="absolute top-4 right-4 z-[70] inline-flex h-11 w-11 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-3xl text-gray-300 shadow-lg hover:border-cyan-300 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 												stroke="currentColor" class="w-8 h-8">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -104,7 +106,7 @@
 										<!-- Navigation arrows -->
 										<button @click="prevThesisImage"
 											:aria-label="t('common.previous')"
-											class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
+											class="absolute left-4 top-1/2 z-[70] inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-cyan-100 shadow-lg shadow-black/30 hover:border-cyan-300 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 												stroke="currentColor" class="w-7 h-7">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,7 +115,7 @@
 										</button>
 										<button @click="nextThesisImage"
 											:aria-label="t('common.next')"
-											class="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-2 focus:outline-none z-20">
+											class="absolute right-4 top-1/2 z-[70] inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-cyan-100 shadow-lg shadow-black/30 hover:border-cyan-300 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 												stroke="currentColor" class="w-7 h-7">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -122,7 +124,7 @@
 										</button>
 										<!-- Zoom controls -->
 										<div
-											class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 bg-gray-900/90 rounded-lg px-4 py-2 z-20 border border-gray-700 shadow">
+											class="absolute bottom-8 left-1/2 z-[70] flex -translate-x-1/2 gap-3 rounded-lg border border-gray-700 bg-gray-900/90 px-4 py-2 shadow">
 											<button @click="zoomThesisOut"
 												class="text-white text-2xl px-2 focus:outline-none">-</button>
 											<button @click="toggleThesisZoom"
@@ -133,7 +135,7 @@
 										<img :src="thesisImages[lightboxThesisIndex]"
 											:alt="`Thesis screenshot enlarged ${lightboxThesisIndex + 1}`"
 											:style="{ transform: `scale(${thesisZoom}) translate(${thesisPanX / thesisZoom}px, ${thesisPanY / thesisZoom}px)`, cursor: thesisZoom > 1 ? (thesisDragging ? 'grabbing' : 'grab') : 'auto' }"
-											class="max-w-full max-h-[80vh] rounded-xl border border-gray-700 shadow-2xl transition-transform duration-200 z-10 select-none"
+											class="max-w-full max-h-[80vh] rounded-lg border border-gray-700 shadow-2xl transition-transform duration-200 z-10 select-none"
 											@mousedown="onThesisImgMouseDown" @mousemove="onThesisImgMouseMove"
 											@mouseup="onThesisImgMouseUp" @mouseleave="onThesisImgMouseLeave"
 											@touchstart="onThesisImgTouchStart" @touchmove="onThesisImgTouchMove"
@@ -150,8 +152,8 @@
 				<div class="border-t border-gray-800 my-8"></div>
 				<section class="mb-8">
 					<h2
-						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
-						<Icon name="mdi:briefcase" class="text-xl" />{{ t('cvPage.workExperience') }}
+						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-cyan-400 pl-3 pb-2 mb-4 relative">
+						<Icon name="mdi:briefcase" class="text-xl text-cyan-300" />{{ t('cvPage.workExperience') }}
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
 					<ul class="space-y-5">
@@ -172,8 +174,8 @@
 				<div class="border-t border-gray-800 my-8"></div>
 				<section class="mb-8">
 					<h2
-						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
-						<Icon name="mdi:star" class="text-xl" />{{ t('cvPage.skills') }}
+						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-cyan-400 pl-3 pb-2 mb-4 relative">
+						<Icon name="mdi:star" class="text-xl text-cyan-300" />{{ t('cvPage.skills') }}
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
 					<div class="mb-4">
@@ -283,8 +285,8 @@
 				<div class="cv-page-break border-t border-gray-800 my-8"></div>
 				<section>
 					<h2
-						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-gray-700 pl-3 pb-2 mb-4 relative">
-						<Icon name="mdi:certificate" class="text-xl" />{{ t('cvPage.certificates') }}
+						class="text-lg font-bold text-gray-200 flex items-center gap-2 uppercase tracking-wider border-l-4 border-cyan-400 pl-3 pb-2 mb-4 relative">
+						<Icon name="mdi:certificate" class="text-xl text-cyan-300" />{{ t('cvPage.certificates') }}
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
 					<ul class="space-y-2">
@@ -305,11 +307,11 @@
 						</li>
 					</ul>
 				</section>
-				<div class="no-print rounded-2xl border border-gray-800 bg-gray-900/50 p-5 mt-8">
+				<div class="no-print rounded-lg border border-gray-800 bg-gray-900/50 p-5 mt-8">
 					<div class="text-base font-bold text-gray-100 mb-1">{{ t('cvPage.ctaTitle') }}</div>
 					<div class="text-gray-400 text-sm mb-3">{{ t('cvPage.ctaDescription') }}</div>
 					<div class="flex flex-wrap gap-3">
-						<a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-blue-700 bg-blue-900/40 px-4 py-2 text-sm font-semibold text-blue-100 hover:bg-blue-800/60 hover:text-white transition">
+						<a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-400/20 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 							<Icon name="mdi:linkedin" class="text-base" />
 							<span>{{ t('cvPage.ctaLinkedIn') }}</span>
 						</a>
@@ -317,7 +319,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</main>
 </template>
 
 <script setup>

@@ -88,7 +88,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
   },
   {
     categoryKey: 'projectsData.categories.chatApp',
-    icon: 'mdi:forum',
+    icon: 'mdi:folder-open',
     items: [
       {
         nameKey: 'projectsData.items.chatRooms.name',
@@ -209,7 +209,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
   },
   {
     categoryKey: 'projectsData.categories.automation',
-    icon: 'mdi:robot',
+    icon: 'mdi:lightning-bolt',
     items: [
       {
         nameKey: 'projectsData.items.smartMeetingRoomSolution.name',
@@ -277,7 +277,7 @@ export const projectCategoriesData: ProjectCategoryData[] = [
   },
   {
     categoryKey: 'projectsData.categories.diy',
-    icon: 'mdi:tools',
+    icon: 'mdi:chip',
     items: [
       {
         nameKey: 'projectsData.items.hyperlapsBoardGame.name',
