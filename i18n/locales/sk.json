@@ -7,9 +7,9 @@
     "next": "Ďalší"
   },
   "home": {
-    "seoTitle": "Adrian Vančo | Full-Stack Developer a IT špecialista",
-    "seoDescription": "Portfólio Adriana Vanča s projektmi z web developmentu, automatizácie, elektroniky a enterprise IT.",
-    "name": "Adrian Vančo",
+    "seoTitle": "Adrián Vančo | Full-Stack Developer a IT špecialista",
+    "seoDescription": "Portfólio Adriána Vanča s projektmi z web developmentu, automatizácie, elektroniky a enterprise IT.",
+    "name": "Adrián Vančo",
     "role": "Full-Stack Developer a IT špecialista",
     "intro": "Tvorím praktické webové aplikácie, interné nástroje, automatizácie a IT riešenia, ktoré prepájajú softvér s reálnou prevádzkou.",
     "location": "Bratislava, Slovensko",
@@ -30,7 +30,7 @@
     "projectsDescription": "Prezrite si moje portfólio webových, automatizačných a elektronických projektov."
   },
   "projectsPage": {
-    "seoTitle": "Projekty | Adrian Vančo",
+    "seoTitle": "Projekty | Adrián Vančo",
     "seoDescription": "Výber projektov z webových aplikácií, enterprise systémov, automatizácie a elektroniky.",
     "title": "Projekty",
     "subtitle": "Výber mojej práce",
@@ -110,8 +110,8 @@
     }
   },
   "cvPage": {
-    "seoTitle": "CV | Adrian Vančo",
-    "seoDescription": "CV Adriana Vanča so vzdelaním, pracovnými skúsenosťami, zručnosťami a certifikátmi.",
+    "seoTitle": "CV | Adrián Vančo",
+    "seoDescription": "CV Adriána Vanča so vzdelaním, pracovnými skúsenosťami, zručnosťami a certifikátmi.",
     "role": "Full-Stack Developer a IT špecialista",
     "location": "Bratislava, Slovensko",
     "education": "Vzdelanie",

@@ -7,9 +7,9 @@
     "next": "Next"
   },
   "home": {
-    "seoTitle": "Adrian Vanco | Full-Stack Developer and IT Specialist",
-    "seoDescription": "Portfolio of Adrian Vanco featuring web development, automation, electronics, and enterprise IT projects.",
-    "name": "Adrian Vanco",
+    "seoTitle": "Adrián Vančo | Full-Stack Developer and IT Specialist",
+    "seoDescription": "Portfolio of Adrián Vančo featuring web development, automation, electronics, and enterprise IT projects.",
+    "name": "Adrián Vančo",
     "role": "Full-Stack Developer & IT Specialist",
     "intro": "I build practical web apps, internal tools, automation workflows, and IT solutions that connect software with real operations.",
     "location": "Bratislava, Slovakia",
@@ -30,7 +30,7 @@
     "projectsDescription": "Browse my portfolio of web, automation, and electronics projects."
   },
   "projectsPage": {
-    "seoTitle": "Projects | Adrian Vanco",
+    "seoTitle": "Projects | Adrián Vančo",
     "seoDescription": "Selected projects across web apps, enterprise systems, automation, and electronics.",
     "title": "Projects",
     "subtitle": "A selection of my work",
@@ -110,8 +110,8 @@
     }
   },
   "cvPage": {
-    "seoTitle": "CV | Adrian Vanco",
-    "seoDescription": "CV of Adrian Vanco with education, experience, skills, and certifications.",
+    "seoTitle": "CV | Adrián Vančo",
+    "seoDescription": "CV of Adrián Vančo with education, experience, skills, and certifications.",
     "role": "Full-Stack Developer & IT Specialist",
     "location": "Bratislava, Slovakia",
     "education": "Education",

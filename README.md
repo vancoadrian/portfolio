@@ -1,4 +1,4 @@
-# Adrian Vanco Portfolio
+# Adrián Vančo Portfolio
 
 Personal portfolio built with Nuxt, Vue, Tailwind CSS, Nuxt UI, and i18n support for Slovak and English content.
 
