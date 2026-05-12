@@ -4,20 +4,21 @@
 		<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.1)_0%,rgba(3,7,18,0)_42%,rgba(16,185,129,0.08)_100%)]"></div>
 		<div class="absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
 
-		<div class="relative mx-auto w-full max-w-6xl px-4 pt-14 pb-20 sm:px-6 sm:pt-20 lg:px-10">
-			<NuxtLink
-				to="/"
-				class="mb-10 inline-flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300"
-			>
-				<Icon name="mdi:arrow-left" class="text-lg" />
-				<span>{{ t('common.backHome') }}</span>
-			</NuxtLink>
+		<div class="relative mx-auto w-full max-w-6xl px-4 pt-8 pb-20 sm:px-6 lg:px-10">
+			<div class="mb-10 flex flex-wrap items-center justify-between gap-3">
+				<div class="flex flex-wrap items-center gap-3">
+					<NuxtLink
+						to="/"
+						class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+					>
+						<Icon name="mdi:arrow-left" class="text-lg" />
+						<span>{{ t('common.backHome') }}</span>
+					</NuxtLink>
+				</div>
+				<LanguageSwitch />
+			</div>
 
 			<header class="mb-10 max-w-3xl">
-				<div class="mb-4 inline-flex items-center gap-2 border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm font-semibold text-cyan-200">
-					<Icon name="mdi:folder-open" class="text-base" />
-					<span>{{ t('projectsPage.subtitle') }}</span>
-				</div>
 				<h1 class="text-5xl font-bold leading-none text-white sm:text-6xl">{{ t('projectsPage.title') }}</h1>
 				<p class="mt-5 max-w-2xl text-lg leading-8 text-gray-300">{{ t('projectsPage.seoDescription') }}</p>
 			</header>

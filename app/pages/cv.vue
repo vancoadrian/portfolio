@@ -1,14 +1,18 @@
 <template>
-	<main class="cv-shell relative min-h-screen overflow-hidden bg-gray-950 px-4 pt-14 pb-20 text-gray-100 sm:px-6 sm:pt-20 lg:px-10">
+	<main class="cv-shell relative min-h-screen overflow-hidden bg-gray-950 px-4 pt-8 pb-20 text-gray-100 sm:px-6 lg:px-10">
 		<div class="no-print absolute inset-0 bg-[linear-gradient(180deg,#030712_0%,#07111f_52%,#0f172a_100%)]"></div>
 		<div class="no-print absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.1)_0%,rgba(3,7,18,0)_42%,rgba(16,185,129,0.08)_100%)]"></div>
 		<div class="no-print absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
-		<div class="absolute top-6 left-6 z-20 no-print">
-			<NuxtLink to="/"
-				class="inline-flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300">
-				<Icon name="mdi:arrow-left" class="text-lg" />
-				<span>{{ t('common.backHome') }}</span>
-			</NuxtLink>
+
+		<div class="relative z-20 mx-auto mb-10 flex w-full max-w-4xl flex-wrap items-center justify-between gap-3 no-print">
+			<div class="flex flex-wrap items-center gap-3">
+				<NuxtLink to="/"
+					class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300">
+					<Icon name="mdi:arrow-left" class="text-lg" />
+					<span>{{ t('common.backHome') }}</span>
+				</NuxtLink>
+			</div>
+			<LanguageSwitch />
 		</div>
 		<div
 			class="cv-document relative mx-auto w-full max-w-4xl overflow-hidden rounded-lg border border-gray-800 bg-gray-950/90 p-0 shadow-2xl shadow-black/30">

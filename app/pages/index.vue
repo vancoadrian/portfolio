@@ -7,16 +7,19 @@
       <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.12)_0%,rgba(3,7,18,0)_42%,rgba(16,185,129,0.1)_100%)]"></div>
       <div class="absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
 
-      <div class="relative z-10 flex max-w-[calc(100%-8.5rem)] items-center gap-3 sm:max-w-none">
-        <img
-          :src="`${config.public.baseURL}icon.png`"
-          alt=""
-          class="h-10 w-10 rounded-lg border border-cyan-400/30 bg-gray-900 object-cover"
-        />
-        <div class="min-w-0">
-          <div class="truncate text-sm font-bold text-gray-100">{{ t('home.name') }}</div>
-          <div class="truncate text-xs font-semibold uppercase text-emerald-300">{{ t('home.status') }}</div>
+      <div class="relative z-10 flex items-center justify-between gap-4">
+        <div class="flex min-w-0 items-center gap-3">
+          <img
+            :src="`${config.public.baseURL}icon.png`"
+            alt=""
+            class="h-10 w-10 shrink-0 rounded-lg border border-cyan-400/30 bg-gray-900 object-cover"
+          />
+          <div class="min-w-0">
+            <div class="truncate text-sm font-bold text-gray-100">{{ t('home.name') }}</div>
+            <div class="truncate text-xs font-semibold uppercase text-emerald-300">{{ t('home.status') }}</div>
+          </div>
         </div>
+        <LanguageSwitch />
       </div>
 
       <div class="relative z-10 mx-auto grid w-full min-w-0 max-w-6xl gap-10 pt-10 pb-10 sm:pt-14 lg:grid-cols-[minmax(0,1fr)_25rem] lg:items-end lg:pt-16">
