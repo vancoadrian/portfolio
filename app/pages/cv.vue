@@ -152,17 +152,10 @@
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
 					<ul class="space-y-5">
-						<li>
-							<div class="font-semibold text-gray-100 text-base">{{ t('cvPage.jobItSpecialist') }}</div>
-							<div class="text-gray-400">PROXENTA Support s.r.o.<span
-									class="text-gray-500">(2022-{{ t('cvPage.present') }})</span></div>
-							<div class="text-gray-300 text-sm mt-1">{{ t('cvPage.jobItSpecialistDesc') }}</div>
-						</li>
-						<li>
-							<div class="font-semibold text-gray-100 text-base">{{ t('cvPage.jobAppDeveloper') }}</div>
-							<div class="text-gray-400">MicroStep - HDO s.r.o. <span class="text-gray-500">(2022-{{ t('cvPage.february') }}
-									2026)</span></div>
-							<div class="text-gray-300 text-sm mt-1">{{ t('cvPage.jobAppDeveloperDesc') }}</div>
+						<li v-for="job in workExperienceData" :key="job.titleKey">
+							<div class="font-semibold text-gray-100 text-base">{{ t(job.titleKey) }}</div>
+							<div class="text-gray-400">{{ job.company }} <span class="text-gray-500">({{ t(job.periodKey) }})</span></div>
+							<div class="text-gray-300 text-sm mt-1">{{ t(job.descriptionKey) }}</div>
 						</li>
 					</ul>
 				</section>
@@ -173,107 +166,15 @@
 						<Icon name="mdi:star" class="text-xl text-cyan-300" />{{ t('cvPage.skills') }}
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
-					<div class="mb-4">
+					<div
+						v-for="(group, groupIdx) in localizedSkillGroups" :key="group.titleKey"
+						:class="groupIdx < localizedSkillGroups.length - 1 ? 'mb-4' : ''">
 						<h3 class="text-gray-300 font-semibold mb-2 flex items-center gap-2">
-							<Icon name="mdi:code-tags" class="text-base" />{{ t('cvPage.programming') }}
+							<Icon :name="group.icon" class="text-base" />{{ group.title }}
 						</h3>
 						<ul class="flex flex-wrap gap-3">
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Nuxt.js</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Angular</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Tailwind CSS</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Python</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">R
-							</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Solidity</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Blockchain</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Laravel</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Xamarin</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">C#
-								.NET</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Java
-							</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Figma</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">Jira
-							</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Vercel</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Azure</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Supabase</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Automation</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Electronics</li>
-						</ul>
-					</div>
-					<div class="mb-4">
-						<h3 class="text-gray-300 font-semibold mb-2 flex items-center gap-2">
-							<Icon name="mdi:server" class="text-base" />{{ t('cvPage.itAdministration') }}
-						</h3>
-						<ul class="flex flex-wrap gap-3">
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Active Directory</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								MS365</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								SharePoint</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Server Administration</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Network Administration</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Fortinet</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Ubiquiti</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">NAS
-							</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">IoT
-							</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								SmartHome Solutions</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								VMWare</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Bitdefender GravityZone</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Hikvision</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								Android</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">iOS
-							</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">DIY
-							</li>
-						</ul>
-					</div>
-					<div>
-						<h3 class="text-gray-300 font-semibold mb-2 flex items-center gap-2">
-							<Icon name="mdi:account-group" class="text-base" />{{ t('cvPage.softSkills') }}
-						</h3>
-						<ul class="flex flex-wrap gap-3">
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.teamwork') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.communication') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.problemSolving') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.adaptability') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.timeManagement') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.uiuxDesign') }}</li>
-							<li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
-								{{ t('cvPage.algorithmicThinking') }}</li>
+							<li v-for="skill in group.skills" :key="skill" class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm font-medium shadow">
+								{{ skill }}</li>
 						</ul>
 					</div>
 				</section>
@@ -285,20 +186,8 @@
 						<span class="absolute left-0 -bottom-1 w-full h-px bg-gray-700"></span>
 					</h2>
 					<ul class="space-y-2">
-						<li>
-							<span class="font-semibold text-gray-100">{{ t('cvPage.certIet') }}</span> <span
-								class="text-gray-400">(2024)</span>
-						</li>
-						<li>
-							<span class="font-semibold text-gray-100">{{ t('cvPage.certGoogleAi') }}</span> <span
-								class="text-gray-400">(2024)</span>
-						</li>
-						<li>
-							<span class="font-semibold text-gray-100">{{ t('cvPage.certCcna') }}</span> <span
-								class="text-gray-400">(2019)</span>
-						</li>
-						<li>
-							<span class="font-semibold text-gray-100">{{ t('cvPage.certElectrical') }}</span> <span class="text-gray-400">(2019)</span>
+						<li v-for="cert in certificatesData" :key="cert.nameKey">
+							<span class="font-semibold text-gray-100">{{ t(cert.nameKey) }}</span> <span class="text-gray-400">({{ cert.year }})</span>
 						</li>
 					</ul>
 				</section>
@@ -318,8 +207,9 @@
 </template>
 
 <script setup>
-import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useImageLightbox } from '~/composables/useImageLightbox';
+import { certificatesData, skillGroupsData, workExperienceData } from '~/data/cv';
 
 const config = useRuntimeConfig();
 const { t } = useI18n();
@@ -330,6 +220,16 @@ const { portfolioURL } = usePortfolioSeo({
 });
 
 const profileImage = ref(config.public.baseURL + 'linkedin.jpg');
+
+const localizedSkillGroups = computed(() => skillGroupsData.map((group) => ({
+	titleKey: group.titleKey,
+	title: t(group.titleKey),
+	icon: group.icon,
+	skills: [
+		...(group.skills ?? []),
+		...(group.skillKeys ?? []).map((key) => t(key)),
+	],
+})));
 
 const showThesisImages = ref(false);
 
