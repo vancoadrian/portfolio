@@ -44,6 +44,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/i18n',
     '@nuxt/ui',
+    '@nuxt/eslint',
+    '@nuxtjs/sitemap',
   ],
 
   css: ['~/assets/css/main.css'],
@@ -60,6 +62,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://vancoadrian.github.io',
     defaultLocale: 'sk',
     locales: [
       { code: 'en', name: 'EN', file: 'en.json' },
@@ -74,11 +77,37 @@ export default defineNuxtConfig({
     }
   },
 
+  site: {
+    url: (process.env.NUXT_PUBLIC_SITE_URL || 'https://vancoadrian.github.io') + appBaseURL,
+  },
+
+  sitemap: {
+    // Auto-discovered image URLs don't account for the /portfolio/ base path
+    // and resolve incorrectly; og:image is already covered by usePortfolioSeo.
+    discoverImages: false,
+    // Route auto-discovery (crawling + page files) produces duplicate and
+    // malformed entries for this app/i18n setup, so the page list is
+    // declared explicitly instead — still auto-generates valid XML, the
+    // sitemap index, and per-locale hreflang alternates.
+    excludeAppSources: true,
+    urls: () => [
+      { loc: '/', priority: 1.0, changefreq: 'monthly', _i18nTransform: true },
+      { loc: '/cv', priority: 0.8, changefreq: 'monthly', _i18nTransform: true },
+      { loc: '/projects', priority: 0.9, changefreq: 'monthly', _i18nTransform: true },
+    ],
+  },
+
   icon: {
     provider: 'none',
     clientBundle: {
       scan: true,
       // ...or other bundle options
     },
-  }
+  },
+
+  eslint: {
+    config: {
+      stylistic: false,
+    },
+  },
 })

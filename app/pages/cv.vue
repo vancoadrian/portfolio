@@ -4,16 +4,7 @@
 		<div class="no-print absolute inset-0 bg-[linear-gradient(90deg,rgba(34,211,238,0.1)_0%,rgba(3,7,18,0)_42%,rgba(16,185,129,0.08)_100%)]"></div>
 		<div class="no-print absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
 
-		<div class="relative z-20 mx-auto mb-10 flex w-full max-w-4xl flex-wrap items-center justify-between gap-3 no-print">
-			<div class="flex flex-wrap items-center gap-3">
-				<NuxtLink to="/"
-					class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300">
-					<Icon name="mdi:arrow-left" class="text-lg" />
-					<span>{{ t('common.backHome') }}</span>
-				</NuxtLink>
-			</div>
-			<LanguageSwitch />
-		</div>
+		<PageHeader class="relative z-20 mx-auto mb-10 w-full max-w-4xl no-print" />
 		<div
 			class="cv-document relative mx-auto w-full max-w-4xl overflow-hidden rounded-lg border border-gray-800 bg-gray-950/90 p-0 shadow-2xl shadow-black/30">
 			<button type="button" @click="exportToPdf"
@@ -315,7 +306,7 @@
 					<div class="text-base font-bold text-gray-100 mb-1">{{ t('cvPage.ctaTitle') }}</div>
 					<div class="text-gray-400 text-sm mb-3">{{ t('cvPage.ctaDescription') }}</div>
 					<div class="flex flex-wrap gap-3">
-						<a href="https://www.linkedin.com/in/adrián-vančo-0b4835176" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-400/20 focus:outline-none focus:ring-2 focus:ring-cyan-300">
+						<a :href="LINKEDIN_URL" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-400/20 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 							<Icon name="mdi:linkedin" class="text-base" />
 							<span>{{ t('cvPage.ctaLinkedIn') }}</span>
 						</a>
@@ -327,7 +318,9 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
+import { useImageLightbox } from '~/composables/useImageLightbox';
+
 const config = useRuntimeConfig();
 const { t } = useI18n();
 
@@ -339,97 +332,33 @@ const { portfolioURL } = usePortfolioSeo({
 const profileImage = ref(config.public.baseURL + 'linkedin.jpg');
 
 const showThesisImages = ref(false);
-const lightboxThesisIndex = ref(null);
-const thesisZoom = ref(1);
-const thesisPanX = ref(0);
-const thesisPanY = ref(0);
-const thesisDragging = ref(false);
-const thesisDragStart = ref({ x: 0, y: 0 });
-const thesisPanStart = ref({ x: 0, y: 0 });
 
-function openThesisLightbox(idx) {
-	lightboxThesisIndex.value = idx;
-	thesisZoom.value = 1;
-	thesisPanX.value = 0;
-	thesisPanY.value = 0;
-}
-function closeThesisLightbox() {
-	lightboxThesisIndex.value = null;
-	thesisZoom.value = 1;
-	thesisPanX.value = 0;
-	thesisPanY.value = 0;
-}
+const {
+	index: lightboxThesisIndex,
+	zoom: thesisZoom,
+	panX: thesisPanX,
+	panY: thesisPanY,
+	isDragging: thesisDragging,
+	openAt: openThesisLightbox,
+	close: closeThesisLightbox,
+	prev: prevThesisImage,
+	next: nextThesisImage,
+	zoomIn: zoomThesisIn,
+	zoomOut: zoomThesisOut,
+	toggleZoom: toggleThesisZoom,
+	onMouseDown: onThesisImgMouseDown,
+	onMouseMove: onThesisImgMouseMove,
+	onMouseUp: onThesisImgMouseUp,
+	onMouseLeave: onThesisImgMouseLeave,
+	onTouchStart: onThesisImgTouchStart,
+	onTouchMove: onThesisImgTouchMove,
+	onTouchEnd: onThesisImgTouchEnd,
+	onKeydown: onThesisLightboxKeydown,
+} = useImageLightbox(() => thesisImages);
+
 function closeThesisModal() {
 	showThesisImages.value = false;
 	closeThesisLightbox();
-}
-function prevThesisImage() {
-	if (lightboxThesisIndex.value === null) return;
-	lightboxThesisIndex.value = (lightboxThesisIndex.value - 1 + thesisImages.length) % thesisImages.length;
-	thesisZoom.value = 1;
-	thesisPanX.value = 0;
-	thesisPanY.value = 0;
-}
-function nextThesisImage() {
-	if (lightboxThesisIndex.value === null) return;
-	lightboxThesisIndex.value = (lightboxThesisIndex.value + 1) % thesisImages.length;
-	thesisZoom.value = 1;
-	thesisPanX.value = 0;
-	thesisPanY.value = 0;
-}
-function zoomThesisIn() {
-	thesisZoom.value = Math.min(thesisZoom.value + 0.25, 3);
-	if (thesisZoom.value === 1) {
-		thesisPanX.value = 0;
-		thesisPanY.value = 0;
-	}
-}
-function zoomThesisOut() {
-	thesisZoom.value = Math.max(thesisZoom.value - 0.25, 1);
-	if (thesisZoom.value === 1) {
-		thesisPanX.value = 0;
-		thesisPanY.value = 0;
-	}
-}
-function toggleThesisZoom() {
-	thesisZoom.value = thesisZoom.value === 1 ? 2 : 1;
-	if (thesisZoom.value === 1) {
-		thesisPanX.value = 0;
-		thesisPanY.value = 0;
-	}
-}
-function onThesisImgMouseDown(e) {
-	if (thesisZoom.value === 1) return;
-	thesisDragging.value = true;
-	thesisDragStart.value = { x: e.clientX, y: e.clientY };
-	thesisPanStart.value = { x: thesisPanX.value, y: thesisPanY.value };
-}
-function onThesisImgMouseMove(e) {
-	if (!thesisDragging.value) return;
-	thesisPanX.value = thesisPanStart.value.x + (e.clientX - thesisDragStart.value.x);
-	thesisPanY.value = thesisPanStart.value.y + (e.clientY - thesisDragStart.value.y);
-}
-function onThesisImgMouseUp() {
-	thesisDragging.value = false;
-}
-function onThesisImgMouseLeave() {
-	thesisDragging.value = false;
-}
-function onThesisImgTouchStart(e) {
-	if (thesisZoom.value === 1) return;
-	thesisDragging.value = true;
-	const touch = e.touches[0];
-	thesisDragStart.value = { x: touch.clientX, y: touch.clientY };
-	thesisPanStart.value = { x: thesisPanX.value, y: thesisPanY.value };
-}
-function onThesisImgTouchMove(e) {
-	if (!thesisDragging.value) return;
-	const touch = e.touches[0];
-	thesisPanX.value = thesisPanStart.value.x + (touch.clientX - thesisDragStart.value.x);
-	thesisPanY.value = thesisPanStart.value.y + (touch.clientY - thesisDragStart.value.y);
-}
-function onThesisImgTouchEnd() {
-	thesisDragging.value = false;
 }
 
 function exportToPdf() {
@@ -451,17 +380,7 @@ function onKeydown(e) {
 		return;
 	}
 
-	if (lightboxThesisIndex.value === null) {
-		return;
-	}
-
-	if (e.key === 'ArrowLeft') {
-		prevThesisImage();
-	}
-
-	if (e.key === 'ArrowRight') {
-		nextThesisImage();
-	}
+	onThesisLightboxKeydown(e);
 }
 
 onMounted(() => {

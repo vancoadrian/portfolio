@@ -7,20 +7,26 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@nuxt/icon": "^2.0.0",
-    "@nuxt/image": "^1.11.0",
-    "@nuxt/ui": "^3.3.2",
+    "@nuxt/image": "^2.1.0",
+    "@nuxt/ui": "^4.10.0",
     "@nuxtjs/google-fonts": "^3.2.0",
-    "@nuxtjs/i18n": "^10.0.6",
-    "nuxt": "^4.0.3",
+    "@nuxtjs/i18n": "^10.6.0",
+    "@nuxtjs/sitemap": "^8.3.3",
+    "nuxt": "^4.5.2",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@types/node": "^25.6.0"
+    "@nuxt/eslint": "^1.17.0",
+    "@types/node": "^25.6.0",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.9"
   }
 }

@@ -5,18 +5,7 @@
 		<div class="absolute inset-x-0 top-0 h-px bg-cyan-300/30"></div>
 
 		<div class="relative mx-auto w-full max-w-6xl px-4 pt-8 pb-20 sm:px-6 lg:px-10">
-			<div class="mb-10 flex flex-wrap items-center justify-between gap-3">
-				<div class="flex flex-wrap items-center gap-3">
-					<NuxtLink
-						to="/"
-						class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-gray-700 bg-gray-950/80 px-4 py-2 text-sm font-bold text-gray-200 shadow-lg shadow-black/20 transition hover:border-cyan-300 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300"
-					>
-						<Icon name="mdi:arrow-left" class="text-lg" />
-						<span>{{ t('common.backHome') }}</span>
-					</NuxtLink>
-				</div>
-				<LanguageSwitch />
-			</div>
+			<PageHeader class="mb-10" />
 
 			<header class="mb-10 max-w-3xl">
 				<h1 class="text-5xl font-bold leading-none text-white sm:text-6xl">{{ t('projectsPage.title') }}</h1>
@@ -115,7 +104,7 @@
 				<div class="mb-1 text-base font-bold text-gray-100">{{ t('projectsPage.ctaTitle') }}</div>
 				<div class="mb-3 text-sm text-gray-400">{{ t('projectsPage.ctaDescription') }}</div>
 				<a
-					href="https://www.linkedin.com/in/adrián-vančo-0b4835176"
+					:href="LINKEDIN_URL"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-400/20 focus:outline-none focus:ring-2 focus:ring-cyan-300"
@@ -199,6 +188,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRuntimeConfig } from '#imports';
 import { projectCategoriesData } from '~/data/projects';
+import { useImageLightbox } from '~/composables/useImageLightbox';
 
 const config = useRuntimeConfig();
 const { t } = useI18n();
@@ -213,16 +203,32 @@ function withBaseURL(path) {
 }
 
 const selectedProject = ref(null);
-const lightboxImage = ref(null);
-const lightboxIndex = ref(0);
-const zoom = ref(1);
-const panX = ref(0);
-const panY = ref(0);
-const isDragging = ref(false);
-const dragStart = ref({ x: 0, y: 0 });
-const panStart = ref({ x: 0, y: 0 });
 const searchQuery = ref('');
 const activeCategory = ref('all');
+
+const {
+	index: lightboxIndex,
+	zoom,
+	panX,
+	panY,
+	isDragging,
+	currentImage: lightboxImage,
+	open: openLightbox,
+	close: closeLightbox,
+	prev: prevImage,
+	next: nextImage,
+	zoomIn,
+	zoomOut,
+	toggleZoom,
+	onMouseDown: onImgMouseDown,
+	onMouseMove: onImgMouseMove,
+	onMouseUp: onImgMouseUp,
+	onMouseLeave: onImgMouseLeave,
+	onTouchStart: onImgTouchStart,
+	onTouchMove: onImgTouchMove,
+	onTouchEnd: onImgTouchEnd,
+	onKeydown: onLightboxKeydown,
+} = useImageLightbox(() => selectedProject.value?.images ?? []);
 
 const localizedProjectCategories = computed(() => projectCategoriesData.map((cat, catIndex) => ({
 	key: String(catIndex),
@@ -270,111 +276,8 @@ function closeProjectModal() {
 }
 
 function openProject(item) {
-  selectedProject.value = item;
-  lightboxImage.value = null;
-  lightboxIndex.value = 0;
-  zoom.value = 1;
-  panX.value = 0;
-  panY.value = 0;
-}
-
-function openLightbox(img) {
-  if (!selectedProject.value || !selectedProject.value.images) return;
-  const idx = selectedProject.value.images.indexOf(img);
-  lightboxIndex.value = idx !== -1 ? idx : 0;
-  lightboxImage.value = selectedProject.value.images[lightboxIndex.value];
-  zoom.value = 1;
-  panX.value = 0;
-  panY.value = 0;
-}
-
-function closeLightbox() {
-  lightboxImage.value = null;
-  zoom.value = 1;
-  panX.value = 0;
-  panY.value = 0;
-}
-
-function prevImage() {
-  if (!selectedProject.value || !selectedProject.value.images) return;
-  lightboxIndex.value = (lightboxIndex.value - 1 + selectedProject.value.images.length) % selectedProject.value.images.length;
-  lightboxImage.value = selectedProject.value.images[lightboxIndex.value];
-  zoom.value = 1;
-  panX.value = 0;
-  panY.value = 0;
-}
-
-function nextImage() {
-  if (!selectedProject.value || !selectedProject.value.images) return;
-  lightboxIndex.value = (lightboxIndex.value + 1) % selectedProject.value.images.length;
-  lightboxImage.value = selectedProject.value.images[lightboxIndex.value];
-  zoom.value = 1;
-  panX.value = 0;
-  panY.value = 0;
-}
-
-function zoomIn() {
-  zoom.value = Math.min(zoom.value + 0.25, 3);
-  if (zoom.value === 1) {
-    panX.value = 0;
-    panY.value = 0;
-  }
-}
-
-function zoomOut() {
-  zoom.value = Math.max(zoom.value - 0.25, 1);
-  if (zoom.value === 1) {
-    panX.value = 0;
-    panY.value = 0;
-  }
-}
-
-function toggleZoom() {
-  zoom.value = zoom.value === 1 ? 2 : 1;
-  if (zoom.value === 1) {
-    panX.value = 0;
-    panY.value = 0;
-  }
-}
-
-function onImgMouseDown(e) {
-  if (zoom.value === 1) return;
-  isDragging.value = true;
-  dragStart.value = { x: e.clientX, y: e.clientY };
-  panStart.value = { x: panX.value, y: panY.value };
-}
-
-function onImgMouseMove(e) {
-  if (!isDragging.value) return;
-  panX.value = panStart.value.x + (e.clientX - dragStart.value.x);
-  panY.value = panStart.value.y + (e.clientY - dragStart.value.y);
-}
-
-function onImgMouseUp() {
-  isDragging.value = false;
-}
-
-function onImgMouseLeave() {
-  isDragging.value = false;
-}
-
-function onImgTouchStart(e) {
-  if (zoom.value === 1) return;
-  isDragging.value = true;
-  const touch = e.touches[0];
-  dragStart.value = { x: touch.clientX, y: touch.clientY };
-  panStart.value = { x: panX.value, y: panY.value };
-}
-
-function onImgTouchMove(e) {
-  if (!isDragging.value) return;
-  const touch = e.touches[0];
-  panX.value = panStart.value.x + (touch.clientX - dragStart.value.x);
-  panY.value = panStart.value.y + (touch.clientY - dragStart.value.y);
-}
-
-function onImgTouchEnd() {
-  isDragging.value = false;
+	selectedProject.value = item;
+	closeLightbox();
 }
 
 function onKeydown(e) {
@@ -391,17 +294,7 @@ function onKeydown(e) {
 		return;
 	}
 
-	if (!lightboxImage.value) {
-		return;
-	}
-
-	if (e.key === 'ArrowLeft') {
-		prevImage();
-	}
-
-	if (e.key === 'ArrowRight') {
-		nextImage();
-	}
+	onLightboxKeydown(e);
 }
 
 onMounted(() => {

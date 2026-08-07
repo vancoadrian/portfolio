@@ -55,7 +55,7 @@
               <span>{{ t('home.secondaryCta') }}</span>
             </NuxtLink>
             <a
-              href="https://www.linkedin.com/in/adrián-vančo-0b4835176"
+              :href="LINKEDIN_URL"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex min-h-11 max-w-full items-center gap-2 rounded-lg border border-gray-600 bg-gray-950/70 px-5 py-3 text-base font-bold text-gray-100 transition hover:border-amber-300 hover:text-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
