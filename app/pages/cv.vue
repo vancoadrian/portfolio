@@ -54,41 +54,64 @@
 									class="no-print ml-3 rounded-lg border border-gray-700 bg-gray-800 px-3 py-1 text-xs font-medium text-gray-200 transition hover:border-cyan-300 hover:text-cyan-100">{{ t('cvPage.viewImages') }}</button>
 							</div>
 
-							<!-- Thesis Images Modal (projects-style) -->
-							<div v-if="showThesisImages"
-								class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" role="dialog" aria-modal="true" aria-labelledby="thesis-modal-title" @click.self="closeThesisModal">
-								<div
-									class="bg-gray-950 rounded-lg shadow-2xl border border-gray-800 max-w-lg w-full p-8 relative animate-fade-in" tabindex="-1">
-									<button @click="closeThesisModal"
-										:aria-label="t('common.close')"
-										class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
-										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-											stroke="currentColor" class="w-8 h-8">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-												d="M6 18L18 6M6 6l12 12" />
-										</svg>
-									</button>
-									<div class="mb-4">
-										<div id="thesis-modal-title" class="text-2xl font-bold text-gray-100 mb-1">{{ t('cvPage.thesisImages') }}</div>
-										<div class="text-gray-400 mb-4">{{ t('cvPage.thesisImagesSubtitle') }}</div>
-										<div v-if="thesisImages.length"
-											class="flex gap-3 overflow-x-auto max-w-full pb-1"
-											style="scrollbar-width: thin;">
-											<div class="flex gap-3 min-w-fit">
-												<button v-for="(img, idx) in thesisImages" :key="idx"
-													@click="openThesisLightbox(idx)"
-													:aria-label="`${t('cvPage.openImage')} ${idx + 1}`"
-													class="w-32 h-24 flex-shrink-0 focus:outline-none">
-													<img :src="img"
-														:alt="`Thesis screenshot ${idx + 1}`"
-														class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
-												</button>
+							<!-- Thesis Images Modal -->
+							<UModal
+								v-model:open="showThesisImages"
+								:title="t('cvPage.thesisImages')"
+								:description="t('cvPage.thesisImagesSubtitle')"
+								:close="false"
+								:dismissible="false"
+								:transition="false"
+								:ui="{ overlay: 'z-50 bg-black/70', content: 'z-50 max-w-lg rounded-lg border border-gray-800 bg-gray-950 p-8 shadow-2xl ring-0 divide-y-0' }"
+								@close:prevent="onThesisModalDismiss"
+							>
+								<template #content>
+									<div>
+										<button @click="closeThesisModal"
+											:aria-label="t('common.close')"
+											class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none">
+											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+												stroke="currentColor" class="w-8 h-8">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M6 18L18 6M6 6l12 12" />
+											</svg>
+										</button>
+										<div class="mb-4">
+											<div class="text-2xl font-bold text-gray-100 mb-1">{{ t('cvPage.thesisImages') }}</div>
+											<div class="text-gray-400 mb-4">{{ t('cvPage.thesisImagesSubtitle') }}</div>
+											<div v-if="thesisImages.length"
+												class="flex gap-3 overflow-x-auto max-w-full pb-1"
+												style="scrollbar-width: thin;">
+												<div class="flex gap-3 min-w-fit">
+													<button v-for="(img, idx) in thesisImages" :key="idx"
+														@click="openThesisLightbox(idx)"
+														:aria-label="`${t('cvPage.openImage')} ${idx + 1}`"
+														class="w-32 h-24 flex-shrink-0 focus:outline-none">
+														<img :src="img"
+															:alt="`Thesis screenshot ${idx + 1}`"
+															class="rounded-lg border border-gray-800 w-full h-full object-cover shadow hover:scale-105 transition" />
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>
-									<!-- Lightbox Modal -->
-									<div v-if="lightboxThesisIndex !== null"
-										class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 px-4 select-none" role="dialog" aria-modal="true" :aria-label="t('cvPage.thesisImages')" @click.self="closeThesisLightbox">
+								</template>
+							</UModal>
+							<!-- Thesis Lightbox -->
+							<UModal
+								:open="lightboxThesisIndex !== null"
+								:title="t('cvPage.thesisImages')"
+								:close="false"
+								:dismissible="false"
+								:transition="false"
+								fullscreen
+								:overlay="false"
+								:ui="{ content: 'z-[60] bg-transparent divide-y-0' }"
+								@close:prevent="closeThesisLightbox"
+								@update:open="(value) => { if (!value) closeThesisLightbox(); }"
+							>
+								<template #content>
+									<div v-if="lightboxThesisIndex !== null" class="flex h-full w-full items-center justify-center bg-black/80 px-4 select-none" @click.self="closeThesisLightbox">
 										<button @click="closeThesisLightbox"
 											:aria-label="t('common.close')"
 											class="absolute top-4 right-4 z-[70] inline-flex h-11 w-11 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-3xl text-gray-300 shadow-lg hover:border-cyan-300 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300">
@@ -136,8 +159,8 @@
 											@touchstart="onThesisImgTouchStart" @touchmove="onThesisImgTouchMove"
 											@touchend="onThesisImgTouchEnd" draggable="false" />
 									</div>
-								</div>
-							</div>
+								</template>
+							</UModal>
 						</li>
 						<li>
 							<span class="font-semibold text-gray-100">{{ t('cvPage.secondarySchool') }}</span> <span class="text-gray-400">(2015-2019)</span>
@@ -261,34 +284,25 @@ function closeThesisModal() {
 	closeThesisLightbox();
 }
 
+// Escape/outside-click dismissal is handled per dialog layer by UModal via
+// close:prevent; the window listener only covers lightbox arrow-key nav.
+function onThesisModalDismiss() {
+	if (lightboxThesisIndex.value === null) {
+		closeThesisModal();
+	}
+}
+
 function exportToPdf() {
 	closeThesisModal();
 	nextTick(() => window.print());
 }
 
-function onKeydown(e) {
-	if (e.key === 'Escape') {
-		if (lightboxThesisIndex.value !== null) {
-			closeThesisLightbox();
-			return;
-		}
-
-		if (showThesisImages.value) {
-			closeThesisModal();
-		}
-
-		return;
-	}
-
-	onThesisLightboxKeydown(e);
-}
-
 onMounted(() => {
-	window.addEventListener('keydown', onKeydown);
+	window.addEventListener('keydown', onThesisLightboxKeydown);
 });
 
 onBeforeUnmount(() => {
-	window.removeEventListener('keydown', onKeydown);
+	window.removeEventListener('keydown', onThesisLightboxKeydown);
 });
 const thesisImages = [
 	config.public.baseURL + 'bp/ActivityAddIP.webp',

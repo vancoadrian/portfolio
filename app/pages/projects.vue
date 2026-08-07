@@ -114,39 +114,64 @@
 				</a>
 			</section>
 
-			<div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" @click.self="closeProjectModal">
-				<div class="relative w-full max-w-lg rounded-lg border border-gray-800 bg-gray-950 p-6 shadow-2xl animate-fade-in sm:p-8" tabindex="-1">
-					<button @click="closeProjectModal" :aria-label="t('common.close')" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-white focus:outline-none">
-						<Icon name="mdi:close" />
-					</button>
+			<UModal
+				:open="!!selectedProject"
+				:title="selectedProject?.name"
+				:description="selectedProject?.description"
+				:close="false"
+				:dismissible="false"
+				:transition="false"
+				:ui="{ overlay: 'z-50 bg-black/70', content: 'z-50 max-w-lg rounded-lg border border-gray-800 bg-gray-950 p-6 shadow-2xl ring-0 divide-y-0 sm:p-8' }"
+				@close:prevent="onProjectModalDismiss"
+				@update:open="(value) => { if (!value) closeProjectModal(); }"
+			>
+				<template #content>
+					<div v-if="selectedProject">
+						<button @click="closeProjectModal" :aria-label="t('common.close')" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-white focus:outline-none">
+							<Icon name="mdi:close" />
+						</button>
 
-					<div class="mb-4 pr-8">
-						<div id="project-modal-title" class="mb-1 text-2xl font-bold text-gray-100">{{ selectedProject.name }}</div>
-						<div class="mb-4 text-gray-400">{{ selectedProject.description }}</div>
-						<div v-if="selectedProject.images && selectedProject.images.length" class="pb-2">
-							<button v-if="selectedProject.images[0]" @click="openLightbox(selectedProject.images[0])" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name}`" class="mb-3 w-full focus:outline-none">
-								<img :src="selectedProject.images[0]" :alt="`${selectedProject.name} screenshot 1`" class="max-h-64 w-full rounded-lg border border-gray-800 object-cover shadow transition hover:scale-[1.01]" />
-							</button>
-							<div v-if="selectedProject.images.length > 1" class="overflow-x-auto pb-1 pr-1" style="scrollbar-width: thin;">
-								<div class="flex min-w-max flex-nowrap gap-3">
-									<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name} ${idx + 2}`" class="h-20 w-24 flex-shrink-0 focus:outline-none">
-										<img :src="img" :alt="`${selectedProject.name} screenshot ${idx + 2}`" class="h-full w-full rounded-lg border border-gray-800 object-cover shadow transition hover:scale-105" />
-									</button>
+						<div class="mb-4 pr-8">
+							<div class="mb-1 text-2xl font-bold text-gray-100">{{ selectedProject.name }}</div>
+							<div class="mb-4 text-gray-400">{{ selectedProject.description }}</div>
+							<div v-if="selectedProject.images && selectedProject.images.length" class="pb-2">
+								<button v-if="selectedProject.images[0]" @click="openLightbox(selectedProject.images[0])" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name}`" class="mb-3 w-full focus:outline-none">
+									<img :src="selectedProject.images[0]" :alt="`${selectedProject.name} screenshot 1`" class="max-h-64 w-full rounded-lg border border-gray-800 object-cover shadow transition hover:scale-[1.01]" />
+								</button>
+								<div v-if="selectedProject.images.length > 1" class="overflow-x-auto pb-1 pr-1" style="scrollbar-width: thin;">
+									<div class="flex min-w-max flex-nowrap gap-3">
+										<button v-for="(img, idx) in selectedProject.images.slice(1)" :key="idx" @click="openLightbox(img)" :aria-label="`${t('projectsPage.openImage')}: ${selectedProject.name} ${idx + 2}`" class="h-20 w-24 flex-shrink-0 focus:outline-none">
+											<img :src="img" :alt="`${selectedProject.name} screenshot ${idx + 2}`" class="h-full w-full rounded-lg border border-gray-800 object-cover shadow transition hover:scale-105" />
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div v-if="selectedProject.link && selectedProject.link !== '#'">
-						<a :href="selectedProject.link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-gray-700 hover:text-white">
-							<Icon name="mdi:open-in-new" class="text-base" />
-							<span>{{ t('projectsPage.visitProject') }}</span>
-						</a>
+						<div v-if="selectedProject.link && selectedProject.link !== '#'">
+							<a :href="selectedProject.link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-gray-700 hover:text-white">
+								<Icon name="mdi:open-in-new" class="text-base" />
+								<span>{{ t('projectsPage.visitProject') }}</span>
+							</a>
+						</div>
 					</div>
-				</div>
-			</div>
+				</template>
+			</UModal>
 
-			<div v-if="lightboxImage" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 px-4 select-none" role="dialog" aria-modal="true" :aria-label="selectedProject?.name" @click.self="closeLightbox">
+			<UModal
+				:open="!!lightboxImage"
+				:title="selectedProject?.name"
+				:close="false"
+				:dismissible="false"
+				:transition="false"
+				fullscreen
+				:overlay="false"
+				:ui="{ content: 'z-[60] bg-transparent divide-y-0' }"
+				@close:prevent="closeLightbox"
+				@update:open="(value) => { if (!value) closeLightbox(); }"
+			>
+				<template #content>
+					<div v-if="lightboxImage" class="flex h-full w-full items-center justify-center bg-black/80 px-4 select-none" @click.self="closeLightbox">
 				<button @click="closeLightbox" :aria-label="t('common.close')" class="absolute top-4 right-4 z-[70] inline-flex h-11 w-11 items-center justify-center rounded-lg border border-gray-700 bg-gray-950/85 text-3xl text-gray-300 shadow-lg hover:border-cyan-300 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300">
 					<Icon name="mdi:close" />
 				</button>
@@ -167,7 +192,7 @@
 				</div>
 				<img
 					:src="lightboxImage"
-					:alt="`${selectedProject.name} enlarged screenshot ${lightboxIndex + 1}`"
+					:alt="`${selectedProject?.name} enlarged screenshot ${lightboxIndex + 1}`"
 					:style="{ transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`, cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'auto' }"
 					class="z-10 max-h-[80vh] max-w-full rounded-lg border border-gray-700 shadow-2xl transition-transform duration-200 select-none"
 					@mousedown="onImgMouseDown"
@@ -176,10 +201,12 @@
 					@mouseleave="onImgMouseLeave"
 					@touchstart="onImgTouchStart"
 					@touchmove="onImgTouchMove"
-					@touchend="onImgTouchEnd"
-					draggable="false"
-				/>
-			</div>
+							@touchend="onImgTouchEnd"
+							draggable="false"
+						/>
+					</div>
+				</template>
+			</UModal>
 		</div>
 	</main>
 </template>
@@ -280,28 +307,19 @@ function openProject(item) {
 	closeLightbox();
 }
 
-function onKeydown(e) {
-	if (e.key === 'Escape') {
-		if (lightboxImage.value) {
-			closeLightbox();
-			return;
-		}
-
-		if (selectedProject.value) {
-			closeProjectModal();
-		}
-
-		return;
+// Escape/outside-click dismissal is handled per dialog layer by UModal via
+// close:prevent; the window listener only covers lightbox arrow-key nav.
+function onProjectModalDismiss() {
+	if (!lightboxImage.value) {
+		closeProjectModal();
 	}
-
-	onLightboxKeydown(e);
 }
 
 onMounted(() => {
-	window.addEventListener('keydown', onKeydown);
+	window.addEventListener('keydown', onLightboxKeydown);
 });
 
 onBeforeUnmount(() => {
-	window.removeEventListener('keydown', onKeydown);
+	window.removeEventListener('keydown', onLightboxKeydown);
 });
 </script>
