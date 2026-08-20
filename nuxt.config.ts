@@ -65,9 +65,10 @@ export default defineNuxtConfig({
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://vancoadrian.github.io',
     defaultLocale: 'sk',
     locales: [
-      { code: 'en', name: 'EN', file: 'en.json' },
-      { code: 'sk', name: 'SK', file: 'sk.json' }
-    ]
+      { code: 'en', name: 'EN', language: 'en-US', file: 'en.json' },
+      { code: 'sk', name: 'SK', language: 'sk-SK', file: 'sk.json' }
+    ],
+    vueI18n: 'i18n.config.ts'
   },
 
   runtimeConfig: {
