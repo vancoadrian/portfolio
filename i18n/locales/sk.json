@@ -6,6 +6,12 @@
     "previous": "Predchádzajúci",
     "next": "Ďalší"
   },
+  "error": {
+    "notFoundTitle": "Stránka sa nenašla",
+    "notFoundDescription": "Stránka, ktorú hľadáte, neexistuje alebo bola presunutá.",
+    "genericTitle": "Niečo sa pokazilo",
+    "genericDescription": "Nastala neočakávaná chyba. Skúste sa vrátiť na úvodnú stránku."
+  },
   "home": {
     "seoTitle": "Adrián Vančo | Full-Stack Developer a IT špecialista",
     "seoDescription": "Portfólio Adriána Vanča s projektmi z web developmentu, automatizácie, elektroniky a enterprise IT.",

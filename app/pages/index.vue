@@ -41,14 +41,14 @@
 
           <div class="mt-8 flex max-w-[26rem] flex-wrap gap-3 sm:max-w-none">
             <NuxtLink
-              to="/projects"
+              :to="localePath('/projects')"
               class="inline-flex min-h-11 max-w-full items-center gap-2 rounded-lg bg-cyan-400 px-5 py-3 text-base font-bold text-gray-950 transition hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-200"
             >
               <Icon name="mdi:folder-open" class="text-xl" />
               <span>{{ t('home.primaryCta') }}</span>
             </NuxtLink>
             <NuxtLink
-              to="/cv"
+              :to="localePath('/cv')"
               class="inline-flex min-h-11 max-w-full items-center gap-2 rounded-lg border border-gray-600 bg-gray-950/70 px-5 py-3 text-base font-bold text-gray-100 transition hover:border-emerald-300 hover:text-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-300"
             >
               <Icon name="mdi:file-account" class="text-xl" />
@@ -89,7 +89,7 @@
             <NuxtLink
               v-for="cat in categories"
               :key="cat.category"
-              :to="cat.link"
+              :to="localePath(cat.link)"
               class="group rounded-lg border border-gray-700 bg-gray-950/82 p-5 shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:border-cyan-300/70 hover:bg-gray-900/92 focus:outline-none focus:ring-2 focus:ring-cyan-300"
             >
               <div class="flex items-start justify-between gap-5">
@@ -115,6 +115,7 @@ import { computed } from 'vue';
 
 const config = useRuntimeConfig();
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 usePortfolioSeo({
   title: () => t('home.seoTitle'),
