@@ -39,7 +39,7 @@
 					<ul class="space-y-2">
 						<li>
 							<span class="font-semibold text-gray-100">{{ t('cvPage.masterDegree') }}
-							</span>, FIIT STU <span class="text-gray-400">(2024-{{ t('cvPage.present') }})</span>
+							</span>, FIIT STU <span class="text-gray-400">({{ t('cvPage.masterPeriod') }})</span>
 						</li>
 						<li>
 							<span class="font-semibold text-gray-100">{{ t('cvPage.bachelorDegree') }}</span>, FIIT STU
