@@ -12,21 +12,30 @@ function resolveSeoValue(value: SeoValue) {
 	return typeof value === 'function' ? value() : value;
 }
 
+// GitHub Pages serves the prerendered directory-style pages only at the
+// trailing-slash URL and 301-redirects the bare form, so every absolute URL
+// we emit (canonical, hreflang, og:url) must end with a slash to point at a
+// directly served page.
+function withTrailingSlash(path: string) {
+	return path.endsWith('/') ? path : `${path}/`;
+}
+
 export function usePortfolioSeo(options: PortfolioSeoOptions) {
 	const config = useRuntimeConfig();
 	const route = useRoute();
 	const { locales } = useI18n();
 	const switchLocalePath = useSwitchLocalePath();
+	const localePath = useLocalePath();
 
 	const siteURL = computed(() => config.public.siteURL?.replace(/\/$/, '') || '');
 	const basePath = computed(() => (config.public.baseURL || '/').replace(/\/$/, ''));
 	const canonicalURL = computed(() => {
 		if (!siteURL.value) return '';
-		return `${siteURL.value}${basePath.value}${route.path}`;
+		return `${siteURL.value}${basePath.value}${withTrailingSlash(route.path)}`;
 	});
 	const portfolioURL = computed(() => {
 		if (!siteURL.value) return '';
-		return `${siteURL.value}${basePath.value || '/'}`;
+		return `${siteURL.value}${basePath.value}${withTrailingSlash(localePath('/'))}`;
 	});
 	const ogImageURL = computed(() => {
 		const imagePath = `${config.public.baseURL}${(options.image || 'linkedin.jpg').replace(/^\//, '')}`;
@@ -38,7 +47,7 @@ export function usePortfolioSeo(options: PortfolioSeoOptions) {
 	const alternateLinks = computed(() => {
 		if (!siteURL.value) return [];
 		const toHref = (code: Parameters<typeof switchLocalePath>[0]) =>
-			`${siteURL.value}${basePath.value}${switchLocalePath(code)}`;
+			`${siteURL.value}${basePath.value}${withTrailingSlash(switchLocalePath(code))}`;
 		return [
 			...locales.value.map((entry) => ({
 				rel: 'alternate' as const,

@@ -80,6 +80,10 @@ export default defineNuxtConfig({
 
   site: {
     url: (process.env.NUXT_PUBLIC_SITE_URL || 'https://vancoadrian.github.io') + appBaseURL,
+    // GitHub Pages serves prerendered pages at trailing-slash URLs and
+    // 301-redirects the bare form; keep sitemap locs and hreflang alternates
+    // pointing at the directly served URLs.
+    trailingSlash: true,
   },
 
   sitemap: {
